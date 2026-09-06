@@ -71,7 +71,7 @@ html {
 /* Navbar */
 .navbar {
     position: fixed;
-    z-index: 4;
+    z-index: 2;
     width: 100%;
 }
 
@@ -159,7 +159,7 @@ html {
     padding: 10px 0;
     position: fixed;
     background-color: transparent;
-    z-index: 10;
+    z-index: 3;
     backdrop-filter: blur(5px);
     transform: translateY(-110%);
     box-shadow: 2px 5px 20px var(--text-colour);
@@ -242,20 +242,23 @@ html {
     fill: var(--text-colour);
     width: 37.25px;
 }
+
 /* Blur layer */
- .blur-layer{
+.blur-layer {
     height: 100%;
     width: 100%;
     position: fixed;
     display: none;
     top: 0%;
-    z-index: 5;
+    z-index: 2;
     background-color: transparent;
     backdrop-filter: blur(3px);
-} 
- .blur-layer-open{
+}
+
+.blur-layer-open {
     display: initial;
-} 
+}
+
 /* Hero-Section */
 .hero-layer {
     position: absolute;
@@ -468,7 +471,7 @@ html {
     position: absolute;
     top: 40%;
     left: -3%;
-    z-index: 4;
+    z-index: 1;
     margin: 0 80px;
     display: flex;
     justify-content: center;
@@ -496,7 +499,7 @@ html {
     top: 40%;
     right: -3%;
     border-radius: 100px;
-    z-index: 4;
+    z-index: 1;
     margin: 0 80px;
     display: flex;
     justify-content: center;
@@ -614,7 +617,7 @@ html {
     position: fixed;
     bottom: 2%;
     right: 2%;
-    z-index: 4;
+    z-index: 3;
     fill: var(--Bg-colour);
     display: flex;
     justify-content: center;
@@ -856,7 +859,7 @@ html {
     overflow: auto;
     scrollbar-width: none;
     background-color: var(--Bg-colour);
-    z-index: 3;
+    z-index: 4;
     padding: 80px 10px 10px 10px;
 }
 
@@ -1216,7 +1219,7 @@ html {
 /* Image Cards */
 .image-card {
     position: relative;
-    z-index: 2;
+    z-index: 1;
     overflow: hidden;
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
@@ -1365,7 +1368,7 @@ html {
 
 .offer-content {
     position: absolute;
-    z-index: 3;
+    z-index: 1;
     height: auto;
     margin: 0 80px;
 }
@@ -1444,6 +1447,129 @@ html {
     background-color: var(--CTA-hover-colour);
 }
 
+/* Photo Gallary */
+.photo-gallary {
+    height: auto;
+    width: 100%;
+    margin-top: 56px;
+    padding: 0 80px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.photo-gallary h2 {
+    font-family: var(--Heading-font-medium);
+    font-size: 45.06px;
+    margin-bottom: 32px;
+}
+
+.photo-gallary-bg-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    position: absolute;
+    z-index: 0;
+    top: 0%;
+}
+
+.photo-gallary-content {
+    position: relative;
+    margin: 20px;
+    z-index: 1;
+}
+
+.photo-gallary-content h3 {
+    font-family: var(--text-font-medium);
+    color: var(--Bg-colour);
+    font-size: 37px;
+}
+
+.photo-gallary-content p {
+    font-family: var(--text-font-regular);
+    color: var(--Bg-colour);
+    font-size: 20px;
+    margin-top: 8px;
+    max-width: 400px;
+}
+
+.photo-gallery-main {
+    height: auto;
+    display: grid;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 16px;
+    grid-template-areas: "photo-gallary-cards1 photo-gallary-cards2"
+        "photo-gallary-cards3 photo-gallary-cards2";
+    width: 100%;
+}
+
+.photo-gallary-cards1 {
+    grid-area: photo-gallary-cards1;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 250px;
+    box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.205);
+    width: 550px;
+}
+
+.photo-gallary-cards2 {
+    position: relative;
+    width: 350px;
+    border-radius: 8px;
+    box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.205);
+    grid-area: photo-gallary-cards2;
+    overflow: hidden;
+    height: auto;
+}
+
+.photo-gallary-cards3 {
+    grid-area: photo-gallary-cards3;
+    box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.205);
+    width: 550px;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 280px;
+}
+
+.photo-gallary-layer {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+    opacity: 40%;
+    background-color: var(--text-colour);
+}
+.photo-gallery-CTA{
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+}
+.photo-gallery-CTA h4{
+    margin-bottom: 8px;
+    font-size: 20px;
+    font-family: var(--text-font-medium);
+}
+.photo-gallery-CTA button {
+    height: 52px;
+    width: 204px;
+    font-family: var(--text-font-regular);
+    font-size: 18.8px;
+    border-radius: 100px;
+    border: none;
+    background-color: var(--CTA-colour);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+.photo-gallery-CTA button:hover {
+cursor: pointer;
+background-color: var(--CTA-hover-colour);
+}
 /* Responsive adjustments */
 @media (min-width: 868px) {
     .about-grid {
@@ -1647,6 +1773,33 @@ html {
     .offer-content h2 {
         font-size: 60px;
         line-height: 60px;
+    }
+
+    /* Photo gallery */
+    .photo-gallary {
+        padding: 0 40px;
+    }
+
+    .photo-gallery-main {
+        justify-content: unset;
+        grid-template-areas: "photo-gallary-cards1"
+            "photo-gallary-cards2"
+            "photo-gallary-cards3";
+    }
+
+    .photo-gallary-cards1 {
+        height: 250px;
+        width: 100%;
+    }
+
+    .photo-gallary-cards2 {
+        height: 250px;
+        width: 100%;
+    }
+
+    .photo-gallary-cards3 {
+        height: 250px;
+        width: 100%;
     }
 
 }
@@ -1992,11 +2145,6 @@ html {
         margin-bottom: 28px;
     }
 
-    .offer-CTA-btn {
-        height: 50px;
-        width: 100%;
-    }
-
     .Offer-section {
         height: 520px;
     }
@@ -2004,6 +2152,11 @@ html {
     .offer-layer {
         opacity: 60%;
         height: 520px;
+    }
+
+    /* photo-gallary */
+    .photo-gallary {
+        padding: 0 12px;
     }
 }
 
@@ -2348,5 +2501,22 @@ html {
 
     .section-title {
         font-size: 35px;
+    }
+
+    .offer-CTA-btn {
+        height: 50px;
+        width: 100%;
+    }
+
+    .photo-gallary h2 {
+        font-size: 35px;
+    }
+
+    .photo-gallary-content h3 {
+        font-size: 26px;
+    }
+
+    .photo-gallary-content p {
+        font-size: 15px;
     }
 }
