@@ -1542,17 +1542,20 @@ html {
     opacity: 40%;
     background-color: var(--text-colour);
 }
-.photo-gallery-CTA{
-display: flex;
-justify-content: center;
-align-items: center;
-flex-direction: column;
+
+.photo-gallery-CTA {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
-.photo-gallery-CTA h4{
+
+.photo-gallery-CTA h4 {
     margin-bottom: 8px;
     font-size: 20px;
     font-family: var(--text-font-medium);
 }
+
 .photo-gallery-CTA button {
     height: 52px;
     width: 204px;
@@ -1566,11 +1569,182 @@ flex-direction: column;
     align-items: center;
     gap: 8px;
 }
+
 .photo-gallery-CTA button:hover {
-cursor: pointer;
-background-color: var(--CTA-hover-colour);
+    cursor: pointer;
+    background-color: var(--CTA-hover-colour);
 }
-/* Responsive adjustments */
+
+/* Testmonials sections */
+.testimonial-section {
+    text-align: center;
+    height: auto;
+    margin-top: 56px;
+}
+
+.testimonial-section h2 {
+    font-family: var(--Heading-font-medium);
+    font-size: 45.06px;
+    color: var(--text-colour);
+    letter-spacing: -0.02em;
+    margin-bottom: 32px;
+}
+
+.testimonials-cards-section {
+    display: flex;
+    align-items: center;
+    margin: 0 80px;
+    justify-content: center;
+    position: relative;
+}
+
+.arrow-btn-reverce {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: none;
+    position: absolute;
+    top: 50%;
+    background-color: var(--Bg-colour);
+    box-shadow: 1px 2px 10px var(--text-colour);
+    left: -3%;
+    display: flex;
+    align-items: center;
+    transform: rotate(180deg);
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.arrow-btn-forword {
+    right: -3%;
+    background-color: var(--Bg-colour);
+    width: 70px;
+    box-shadow: 1px 2px 10px var(--text-colour);
+    height: 70px;
+    border-radius: 50%;
+    border: none;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.arrow-btn-forword svg,
+.arrow-btn-reverce svg {
+    width: 40px;
+    height: 40px;
+    fill: var(--text-colour);
+    transition: stroke 0.2s ease;
+}
+
+.arrow-btn-forword:hover,
+.arrow-btn-reverce:hover {
+    background-color: #f0f0f0;
+}
+
+.testimonials-cards-main {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow: auto;
+    height: auto;
+    scrollbar-width: none;
+}
+
+.testimonials-cards {
+    flex: 0 0 320px;
+    background: var(--text-colour);
+    border-radius: 8px;
+    color: var(--Bg-colour);
+    fill: var(--CTA-colour);
+    padding: 24px;
+    text-align: left;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.testimonials-card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.testimonials-card-header img {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: none;
+    flex-shrink: 0;
+}
+
+.testimonials-card-header .customer-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.testimonials-card-header .customer-name {
+    font-family: var(--Heading-font-medium);
+    font-size: 22px;
+    color: var(--Bg-colour);
+}
+
+.testimonials-card-header .customer-title {
+    font-size: 16px;
+    color: rgba(250, 250, 250, 0.411);
+    font-family: var(--text-font-regular);
+}
+
+.testimonials-card-body {
+    flex: 1;
+}
+
+.testimonials-card-body p {
+    font-size: 16px;
+    line-height: 1.6;
+    height: 200px;
+    font-family: var(--text-font-regular);
+    color: var(--Bg-colour);
+}
+
+.testimonials-cards-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(250, 250, 250, 0.15);
+}
+
+.testimonials-cards-footer .stars {
+    display: flex;
+    gap: 2px;
+}
+
+.testimonials-cards-footer .stars svg {
+    width: 22px;
+    height: 22px;
+    fill: var(--CTA-hover-colour);
+}
+
+.testimonials-cards-footer .rating-score {
+    border-left: 2px solid var(--Bg-colour);
+    font-family: var(--Heading-font-medium);
+    font-weight: 600;
+    font-size: 20px;
+    padding-left: 8px;
+    color: var(--clr-light);
+}
+
+/* ---------- Responsive ---------- */
 @media (min-width: 868px) {
     .about-grid {
         grid-template-columns: 1.05fr 0.95fr;
@@ -1802,6 +1976,10 @@ background-color: var(--CTA-hover-colour);
         width: 100%;
     }
 
+    /*testimonial-section */
+    .testimonials-cards-section {
+        margin: 0 40px;
+    }
 }
 
 @media (788px >=width) {
@@ -1962,6 +2140,28 @@ background-color: var(--CTA-hover-colour);
 
     .customer-error {
         font-size: 17px;
+    }
+
+    .testimonials-cards {
+        flex: 0 0 290px;
+        height: 310px;
+    }
+
+    .testimonials-card-body p {
+        font-size: 13px;
+        height: auto;
+    }
+
+    .testimonials-card-header .customer-name {
+        font-size: 20px;
+    }
+
+    .testimonials-card-header .customer-title {
+        font-size: 14px;
+    }
+
+    .testimonials-cards-footer .rating-score {
+        font-size: 19px;
     }
 }
 
@@ -2158,6 +2358,23 @@ background-color: var(--CTA-hover-colour);
     .photo-gallary {
         padding: 0 12px;
     }
+
+    /*testimonial-section */
+    .testimonials-cards-section {
+        margin: 0px;
+    }
+
+    .testimonials-cards-main {
+        padding: 0 12px;
+    }
+
+    .arrow-btn-reverce {
+        display: none;
+    }
+
+    .arrow-btn-forword {
+        display: none;
+    }
 }
 
 @media (444px >=width) {
@@ -2223,6 +2440,10 @@ background-color: var(--CTA-hover-colour);
 
     .customer-payment h3 {
         font-size: 26px;
+    }
+
+    .testimonials-cards {
+        flex: 0 0 273px;
     }
 }
 
@@ -2519,4 +2740,10 @@ background-color: var(--CTA-hover-colour);
     .photo-gallary-content p {
         font-size: 15px;
     }
+
+    .testimonial-section h2 {
+        font-size: 35px;
+    }
+
+
 }
