@@ -1081,7 +1081,7 @@ html {
     background-color: #fafafa;
     box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.63);
     border-radius: 8px;
-} 
+}
 
 .menu-deshies-images {
     height: 210px;
@@ -1117,7 +1117,7 @@ html {
     line-height: 35px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
-    line-clamp:2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     height: 72px;
@@ -1747,6 +1747,73 @@ html {
     color: var(--clr-light);
 }
 
+/* Reservetable Section */
+.reservetable-section {
+    height: 450px;
+    overflow: hidden;
+    width: 100%;
+    margin-top: 56px;
+    background: url(../assets/Images/Generated\ Image\ August\ 05\,\ 2026\ -\ 11_09AM.webp);
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    background-size: cover;
+}
+
+.reserve-layer {
+    position: absolute;
+    z-index: 0;
+    height: 450px;
+    width: 100%;
+    opacity: 50%;
+    background-color: var(--Bg-colour);
+}
+
+.reserve-content {
+    margin: 0px 80px;
+    position: relative;
+    z-index: 1;
+}
+
+.reserve-content h2 {
+    font-family: var(--Heading-font-medium);
+    font-size: 60px;
+    line-height: 60px;
+    margin-bottom: 8px;
+    letter-spacing: -3px;
+    color: var(--text-colour);
+}
+
+.reserve-content h3 {
+    font-family: var(--Heading-font-medium);
+    font-size: 40px;
+    line-height: 40px;
+    letter-spacing: -3px;
+    margin-bottom: 16px;
+    color: var(--text-colour);
+}
+
+.reserve-content p {
+    font-family: var(--text-font-regular);
+    font-size: 16px;
+    margin-bottom: 32px;
+    max-width: 590px;
+    width: auto;
+}
+.reserve-CTA{
+    height: 52px;
+    width: 204px;
+    font-family: var(--text-font-regular);
+    font-size: 18.8px;
+    border-radius: 100px;
+    border: none;
+    background-color: var(--CTA-colour);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
 /* ---------- Responsive ---------- */
 @media (min-width: 868px) {
     .about-grid {
@@ -1981,6 +2048,11 @@ html {
 
     /*testimonial-section */
     .testimonials-cards-section {
+        margin: 0 40px;
+    }
+
+    /* Reserve table section */
+    .reserve-content {
         margin: 0 40px;
     }
 }
@@ -2378,6 +2450,11 @@ html {
     .arrow-btn-forword {
         display: none;
     }
+
+    /* Reserve table section */
+    .reserve-content {
+        margin: 0 12px;
+    }
 }
 
 @media (444px >=width) {
@@ -2748,5 +2825,18 @@ html {
         font-size: 35px;
     }
 
+    .reserve-content h2 {
+        font-size: 55px;
+        line-height: 48px;
+    }
 
+    .reserve-content h3 {
+        font-size: 25px;
+        line-height: 22px;
+        letter-spacing: -1px;
+    }
+        .recerve-CTA {
+        height: 50px;
+        width: 292px;
+    }
 }
