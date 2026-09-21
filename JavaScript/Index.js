@@ -53,3 +53,85 @@ NavMenuBtn[1].addEventListener("click", () => {
         fullmenu.classList.remove("invisible")
     }
 })
+// Arry for Top deshies cards
+let dishiestop = [
+    {
+        img: "assets/Top-deshies/Gemini_Generated_Image_d2r092d2r092d2r0.webp",
+        name: "Sindhi Biryani",
+        prize: "200"
+    },
+    {
+        img: "assets/Top-deshies/Gemini_Generated_Image_d2r092d2r092d2r0.webp",
+        name: "Cheese Burger",
+        prize: "280"
+    },
+    {
+        img: "assets/Top-deshies/Gemini_Generated_Image_d2r092d2r092d2r0.webp",
+        name: "Pepperoni Pizza",
+        prize: "500"
+    },
+]
+// make sure the dishiestop is is not empty
+if (dishiestop.length >= 0) {
+    dishiestop.forEach(dishes => {
+        createDeshiCard(dishes)
+    });
+}
+else {
+    alert("Your Top Dishies is Empty.")
+}
+// A function that create a card layout buy those arry which i passed them
+function createDeshiCard(dishes) {
+    // Catching top dishies wapper
+    let topdisheswapper = document.querySelector(".top-deshies-card-main")
+    // Outer container
+    const card = document.createElement('div');
+    card.classList.add('deshies-cards');
+
+    // Image wrapper
+    const imageWrapper = document.createElement('div');
+    imageWrapper.classList.add('deshies-images');
+
+    const img = document.createElement('img');
+    img.classList.add('deshies-image');
+    img.src = dishes.img;
+    img.alt = "Top-dishes-images";
+
+    imageWrapper.appendChild(img);
+
+    // Content wrapper
+    const content = document.createElement('div');
+    content.classList.add('deshies-content');
+
+    const title = document.createElement('h3');
+    title.classList.add('top-deshies-title');
+    title.textContent = dishes.name;
+
+    const priceRow = document.createElement('div');
+    priceRow.classList.add('deshies-price');
+
+    const price = document.createElement('h4');
+    price.classList.add('top-deshies-prie');
+    price.textContent = `Rs: ${dishes.prize}`;
+
+    const addBtn = document.createElement('button');
+    addBtn.classList.add('deshies-CTA');
+    addBtn.textContent = 'Add';
+    addBtn.addEventListener("click", (e) => {
+        addBtn.textContent = 'Added';
+        e.target.classList.remove('deshies-CTA');
+        e.target.classList.add('Added-topdishies-btn')
+    })
+
+    priceRow.appendChild(price);
+    priceRow.appendChild(addBtn);
+
+    content.appendChild(title);
+    content.appendChild(priceRow);
+
+    // Assemble
+    card.appendChild(imageWrapper);
+    card.appendChild(content);
+
+    topdisheswapper.append(card);
+}
