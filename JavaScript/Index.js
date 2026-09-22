@@ -56,17 +56,17 @@ NavMenuBtn[1].addEventListener("click", () => {
 // Arry for Top deshies cards
 let dishiestop = [
     {
-        img: "/assets/Top-deshies/Gemini_Generated_Image_d2r092d2r092d2r0.webp",
+        img: "../assets/Top-deshies/Gemini_Generated_Image_d2r092d2r092d2r0.webp",
         name: "Sindhi Biryani",
         prize: "200"
     },
     {
-        img: "/assets/Top-deshies/Gemini_Generated_Image_d2r092d2r092d2r0.webp",
+        img: "../assets/Top-deshies/Gemini_Generated_Image_d2r092d2r092d2r0.webp",
         name: "Cheese Burger",
         prize: "280"
     },
     {
-        img: "/assets/Top-deshies/Gemini_Generated_Image_d2r092d2r092d2r0.webp",
+        img: "../assets/Top-deshies/Gemini_Generated_Image_d2r092d2r092d2r0.webp",
         name: "Pepperoni Pizza",
         prize: "500"
     }
