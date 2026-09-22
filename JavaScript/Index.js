@@ -1,3 +1,4 @@
+
 let Sidebarclose = document.querySelector(".sidebar-close")
 let Navmenu = document.querySelector(".nav-menu")
 let Sidebar = document.querySelector(".sidebar-container")
@@ -134,4 +135,109 @@ function createDeshiCard(dishes) {
     card.appendChild(content);
 
     topdisheswapper.append(card);
+}
+// Array for full menu
+let Webfullmenu = [
+    {
+        img: "assets/Menu-Items/Gemini_Generated_Image_62pd0062pd0062pd.webp",
+        name: "Cheese Burger",
+        prize: "250",
+        discription: "It has a cooked beef patty inside a sliced bun. A slice of melted.",
+        Id: "burger",
+        topsell: true
+    },
+    {
+        img: "assets/Menu-Items/Gemini_Generated_Image_62pd0062pd0062pd.webp",
+        name: "Spiced Burger",
+        prize: "280",
+        discription: "It has a cooked beef patty inside a sliced bun. A slice of melted.",
+        Id: "burger",
+        topsell: true
+    },
+    {
+        img: "assets/Menu-Items/Gemini_Generated_Image_62pd0062pd0062pd.webp",
+        name: "Duble Anda Burger",
+        prize: "300",
+        discription: "It has a cooked beef patty inside a sliced bun. A slice of melted.",
+        Id: "burger",
+        topsell: true
+    },
+    {
+        img: "assets/Menu-Items/Gemini_Generated_Image_62pd0062pd0062pd.webp",
+        name: "Zinger Burger",
+        prize: "350",
+        discription: "It has a cooked beef patty inside a sliced bun. A slice of melted.",
+        Id: "burger",
+        topsell: true
+    },
+    {
+        img: "assets/Menu-Items/Gemini_Generated_Image_62pd0062pd0062pd.webp",
+        name: "Chicken Burger",
+        prize: "310",
+        discription: "It has a cooked beef patty inside a sliced bun. A slice of melted.",
+        Id: "burger",
+        topsell: true
+    },
+]
+if(Webfullmenu.length > 0){
+    Webfullmenu.forEach((menuitems)=>{
+        createMenuCard(menuitems)
+    })
+}
+function createMenuCard(menuitems) {
+    let fullmenucardwarpper = document.querySelector(".deshies-main")
+  // Outer card
+  const card = document.createElement('div');
+  card.classList.add('dishies-card');
+
+  // Image wrapper
+  const imageWrapper = document.createElement('div');
+  imageWrapper.classList.add('menu-deshies-images');
+
+  const img = document.createElement('img');
+  img.classList.add('menu-deshies-image');
+  img.src = menuitems.img;
+  img.alt = menuitems.alt || menuitems.name;
+  img.setAttribute('srcset', '');
+
+  imageWrapper.appendChild(img);
+
+  // Content wrapper
+  const content = document.createElement('div');
+  content.classList.add('menu-dishies-card-contant');
+
+  const title = document.createElement('h4');
+  title.classList.add('menu-card-title');
+  title.textContent = menuitems.name;
+
+  const desc = document.createElement('p');
+  desc.classList.add('menu-card-para');
+  desc.textContent = menuitems.discription;
+
+  const price = document.createElement('h5');
+  price.classList.add('menu-card-prize');
+  price.textContent = `Rs: ${menuitems.prize}`;
+
+  // Button + SVG icon (SVG needs createElementNS, not createElement)
+  let btnsvg
+  const svg = '<svg xmlns="http://www.w3.org/2000/svg" class="menu-card-CTA-icon" height="24px" viewBox="0 -960 960 960" width="24px" fill="221300"><path d="M223.5-103.5Q200-127 200-160t23.5-56.5Q247-240 280-240t56.5 23.5Q360-193 360-160t-23.5 56.5Q313-80 280-80t-56.5-23.5Zm400 0Q600-127 600-160t23.5-56.5Q647-240 680-240t56.5 23.5Q760-193 760-160t-23.5 56.5Q713-80 680-80t-56.5-23.5ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z"/></svg>';
+  const button = document.createElement('button');
+  button.classList.add('menu-card-CTA');
+  button.innerText = 'Add to Cart';
+  button.insertAdjacentHTML('beforeend', svg);
+  button.addEventListener('click',(e)=>{
+      e.target.classList.remove('menu-card-CTA')
+      btnsvg = e.target.children[0]
+      button.innerText = 'Added to Cart';
+    btnsvg.style.display = "none";
+    e.target.classList.add('Added-fullmenu-btn')
+})
+  content.appendChild(title);
+  content.appendChild(desc);
+  content.appendChild(price);
+  content.appendChild(button);
+
+  card.appendChild(imageWrapper);
+  card.appendChild(content);
+  fullmenucardwarpper.append(card);
 }
