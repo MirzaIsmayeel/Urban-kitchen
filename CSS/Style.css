@@ -1216,7 +1216,6 @@ transform: translateY(1px);
     border: none;
     border-radius: 100px;
     display: flex;
-    transition: 0.3s ease-in-out;
     justify-content: center;
     align-items: center;
     fill: var(--text-colour);

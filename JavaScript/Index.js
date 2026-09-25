@@ -143,7 +143,7 @@ let Webfullmenu = [
         name: "Cheese Burger",
         prize: "250",
         discription: "It has a cooked beef patty inside a sliced bun. A slice of melted.",
-        Id: "burger",
+        Id: "Burgers",
         topsell: true
     },
     {
@@ -151,7 +151,7 @@ let Webfullmenu = [
         name: "Spiced Burger",
         prize: "280",
         discription: "It has a cooked beef patty inside a sliced bun. A slice of melted.",
-        Id: "burger",
+        Id: "Burgers",
         topsell: true
     },
     {
@@ -159,7 +159,7 @@ let Webfullmenu = [
         name: "Duble Anda Burger",
         prize: "300",
         discription: "It has a cooked beef patty inside a sliced bun. A slice of melted.",
-        Id: "burger",
+        Id: "Burgers",
         topsell: true
     },
     {
@@ -167,7 +167,7 @@ let Webfullmenu = [
         name: "Zinger Burger",
         prize: "350",
         discription: "It has a cooked beef patty inside a sliced bun. A slice of melted.",
-        Id: "burger",
+        Id: "Burgers",
         topsell: true
     },
     {
@@ -175,10 +175,67 @@ let Webfullmenu = [
         name: "Chicken Burger",
         prize: "310",
         discription: "It has a cooked beef patty inside a sliced bun. A slice of melted.",
-        Id: "burger",
+        Id: "Burgers",
+        topsell: true
+    },
+    {
+        img: "assets/Menu-Items/Gemini_Generated_Image_62pd0062pd0062pd.webp",
+        name: "Tikka pizza",
+        prize: "1000",
+        discription: "It has a cooked beef patty inside a sliced bun. A slice of melted.",
+        Id: "Pizza",
+        topsell: true
+    },
+    {
+        img: "assets/Menu-Items/Gemini_Generated_Image_62pd0062pd0062pd.webp",
+        name: "malai boti pizza",
+        prize: "980",
+        discription: "It has a cooked beef patty inside a sliced bun. A slice of melted.",
+        Id: "Pizza",
+        topsell: true
+    },
+    {
+        img: "assets/Menu-Items/Gemini_Generated_Image_62pd0062pd0062pd.webp",
+        name: "kababish pizza",
+        prize: "950",
+        discription: "It has a cooked beef patty inside a sliced bun. A slice of melted.",
+        Id: "Pizza",
+        topsell: true
+    },
+    {
+        img: "assets/Menu-Items/Gemini_Generated_Image_62pd0062pd0062pd.webp",
+        name: "Spiced pizza",
+        prize: "1100",
+        discription: "It has a cooked beef patty inside a sliced bun. A slice of melted.",
+        Id: "Pizza",
+        topsell: true
+    },
+    {
+        img: "assets/Menu-Items/Gemini_Generated_Image_62pd0062pd0062pd.webp",
+        name: "Beef pizza",
+        prize: "1000",
+        discription: "It has a cooked beef patty inside a sliced bun. A slice of melted.",
+        Id: "Pizza",
         topsell: true
     },
 ]
+let tabbtns = document.querySelectorAll(".tab")
+let btnfilter
+function menubtnfilter(btnfilter) {   
+ tabbtns.forEach(btn => {    
+     btn.addEventListener('click', (btn)=>{
+            btnfilter = btn.target.textContent
+            Webfullmenu.forEach((menuitems)=>{
+                console.log(btnfilter)
+              if(menuitems.Id == `${btnfilter}`){
+                console.log(menuitems)
+                createMenuCard(menuitems)
+              }
+            })
+        })
+    });
+}
+menubtnfilter(btnfilter)
 if(Webfullmenu.length > 0){
     Webfullmenu.forEach((menuitems)=>{
         createMenuCard(menuitems)
