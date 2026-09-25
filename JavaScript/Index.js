@@ -32,6 +32,7 @@ function togllefullmenu() {
     if (fullmenu.classList.contains("invisible")) {
         topdeshies.classList.toggle("invisible")
         fullmenu.classList.toggle("invisible")
+        console.log(tabbtns[0].click())
     }
     else {
         topdeshies.classList.remove("invisible")
@@ -218,83 +219,157 @@ let Webfullmenu = [
         Id: "Pizza",
         topsell: true
     },
+    {
+        img: "assets/Menu-Items/Gemini_Generated_Image_62pd0062pd0062pd.webp",
+        name: "Chicken Biryani",
+        prize: "350",
+        discription: "Fragrant basmati rice layered with tender spiced chicken, saffron, and slow-cooked traditional aromatics.",
+        Id: "Rice & Mains",
+        topsell: true
+    },
+    {
+        img: "assets/Menu-Items/Gemini_Generated_Image_62pd0062pd0062pd.webp",
+        name: "Beef Karahi",
+        prize: "450",
+        discription: "Tender beef chunks simmered in a rich tomato-based curry with ginger and chili.",
+        Id: "Rice & Mains",
+        topsell: true
+    },
+    {
+        img: "assets/Menu-Items/Gemini_Generated_Image_62pd0062pd0062pd.webp",
+        name: "Vegetable Pulao",
+        prize: "220",
+        discription: "Fluffy basmati rice cooked with seasonal vegetables, whole spices, and fragrant ghee aroma.",
+        Id: "Rice & Mains",
+        topsell: true
+    },
+    {
+        img: "assets/Menu-Items/Gemini_Generated_Image_62pd0062pd0062pd.webp",
+        name: "Chicken Karahi",
+        prize: "400",
+        discription: "Juicy chicken cooked in a spiced tomato gravy with garlic, ginger, and coriander.",
+        Id: "Rice & Mains",
+        topsell: true
+    },
+    {
+        img: "assets/Menu-Items/Gemini_Generated_Image_62pd0062pd0062pd.webp",
+        name: "Mutton Pulao",
+        prize: "480",
+        discription: "Slow-cooked mutton and rice infused with whole spices, caramelized onions, and warm cardamom.",
+        Id: "Rice & Mains",
+        topsell: true
+    },
+    {
+        img: "assets/Menu-Items/Gemini_Generated_Image_62pd0062pd0062pd.webp",
+        name: "Chicken Ramen",
+        prize: "380",
+        discription: "Rich miso broth with tender chicken, soft noodles, a soft-boiled egg, and scallions.",
+        Id: "Noodles & Ramen",
+        topsell: true
+    },
+    {
+        img: "assets/Menu-Items/Gemini_Generated_Image_62pd0062pd0062pd.webp",
+        name: "Beef Noodles",
+        prize: "400",
+        discription: "Stir-fried noodles tossed with tender beef strips, crisp vegetables, and a soy glaze.",
+        Id: "Noodles & Ramen",
+        topsell: true
+    },
+    {
+        img: "assets/Menu-Items/Gemini_Generated_Image_62pd0062pd0062pd.webp",
+        name: "Vegetable Ramen",
+        prize: "320",
+        discription: "A light vegetable broth with soft noodles, tofu, mushrooms, and crisp seasonal greens.",
+        Id: "Noodles & Ramen",
+        topsell: true
+    },
+    {
+        img: "assets/Menu-Items/Gemini_Generated_Image_62pd0062pd0062pd.webp",
+        name: "Spicy Seafood Noodles",
+        prize: "450",
+        discription: "Spicy broth loaded with shrimp, squid, noodles, and a kick of chili oil.",
+        Id: "Noodles & Ramen",
+        topsell: true
+    },
 ]
 let tabbtns = document.querySelectorAll(".tab")
 let btnfilter
-function menubtnfilter(btnfilter) {   
- tabbtns.forEach(btn => {    
-     btn.addEventListener('click', (btn)=>{
+
+let fullmenucardwarppertital = document.querySelector(".menu-deshies-heading")
+let fullmenucardwarpper = document.querySelector(".deshies-main")
+function menubtnfilter(btnfilter) {
+    tabbtns.forEach(btn => {
+        btn.addEventListener('click', (btn) => {
             btnfilter = btn.target.textContent
-            Webfullmenu.forEach((menuitems)=>{
-                console.log(btnfilter)
-              if(menuitems.Id == `${btnfilter}`){
-                console.log(menuitems)
-                createMenuCard(menuitems)
-              }
+            tabbtns.forEach((tab)=>{
+                tab.classList.remove('tab-active')
+                btn.target.classList.add('tab-active')
+            })
+            fullmenucardwarpper.innerHTML = ''
+            Webfullmenu.forEach((menuitems) => {
+                if (menuitems.Id == `${btnfilter}`) {
+                    createMenuCard(menuitems, btnfilter)
+                }
             })
         })
     });
 }
 menubtnfilter(btnfilter)
-if(Webfullmenu.length > 0){
-    Webfullmenu.forEach((menuitems)=>{
-        createMenuCard(menuitems)
+function createMenuCard(menuitems, tital) {
+    // Outer card
+    const card = document.createElement('div');
+    card.classList.add('dishies-card');
+
+    // Image wrapper
+    const imageWrapper = document.createElement('div');
+    imageWrapper.classList.add('menu-deshies-images');
+
+    const img = document.createElement('img');
+    img.classList.add('menu-deshies-image');
+    img.src = menuitems.img;
+    img.alt = menuitems.alt || menuitems.name;
+    img.setAttribute('srcset', '');
+
+    imageWrapper.appendChild(img);
+
+    // Content wrapper
+    const content = document.createElement('div');
+    content.classList.add('menu-dishies-card-contant');
+
+    const title = document.createElement('h4');
+    title.classList.add('menu-card-title');
+    title.textContent = menuitems.name;
+
+    const desc = document.createElement('p');
+    desc.classList.add('menu-card-para');
+    desc.textContent = menuitems.discription;
+
+    const price = document.createElement('h5');
+    price.classList.add('menu-card-prize');
+    price.textContent = `Rs: ${menuitems.prize}`;
+
+    // Button + SVG icon (SVG needs createElementNS, not createElement)
+    let btnsvg
+    const svg = '<svg xmlns="http://www.w3.org/2000/svg" class="menu-card-CTA-icon" height="24px" viewBox="0 -960 960 960" width="24px" fill="221300"><path d="M223.5-103.5Q200-127 200-160t23.5-56.5Q247-240 280-240t56.5 23.5Q360-193 360-160t-23.5 56.5Q313-80 280-80t-56.5-23.5Zm400 0Q600-127 600-160t23.5-56.5Q647-240 680-240t56.5 23.5Q760-193 760-160t-23.5 56.5Q713-80 680-80t-56.5-23.5ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z"/></svg>';
+    const button = document.createElement('button');
+    button.classList.add('menu-card-CTA');
+    button.innerText = 'Add to Cart';
+    button.insertAdjacentHTML('beforeend', svg);
+    button.addEventListener('click', (e) => {
+        e.target.classList.add('Added-fullmenu-btn')
+        e.target.style.backgroundColor = "#221300"
+        e.target.classList.remove('menu-card-CTA')
+        btnsvg = e.target.children[0]
+        button.innerText = 'Added to Cart';
+        btnsvg.style.display = "none";
     })
-}
-function createMenuCard(menuitems) {
-    let fullmenucardwarpper = document.querySelector(".deshies-main")
-  // Outer card
-  const card = document.createElement('div');
-  card.classList.add('dishies-card');
+    content.appendChild(title);
+    content.appendChild(desc);
+    content.appendChild(price);
+    content.appendChild(button);
 
-  // Image wrapper
-  const imageWrapper = document.createElement('div');
-  imageWrapper.classList.add('menu-deshies-images');
-
-  const img = document.createElement('img');
-  img.classList.add('menu-deshies-image');
-  img.src = menuitems.img;
-  img.alt = menuitems.alt || menuitems.name;
-  img.setAttribute('srcset', '');
-
-  imageWrapper.appendChild(img);
-
-  // Content wrapper
-  const content = document.createElement('div');
-  content.classList.add('menu-dishies-card-contant');
-
-  const title = document.createElement('h4');
-  title.classList.add('menu-card-title');
-  title.textContent = menuitems.name;
-
-  const desc = document.createElement('p');
-  desc.classList.add('menu-card-para');
-  desc.textContent = menuitems.discription;
-
-  const price = document.createElement('h5');
-  price.classList.add('menu-card-prize');
-  price.textContent = `Rs: ${menuitems.prize}`;
-
-  // Button + SVG icon (SVG needs createElementNS, not createElement)
-  let btnsvg
-  const svg = '<svg xmlns="http://www.w3.org/2000/svg" class="menu-card-CTA-icon" height="24px" viewBox="0 -960 960 960" width="24px" fill="221300"><path d="M223.5-103.5Q200-127 200-160t23.5-56.5Q247-240 280-240t56.5 23.5Q360-193 360-160t-23.5 56.5Q313-80 280-80t-56.5-23.5Zm400 0Q600-127 600-160t23.5-56.5Q647-240 680-240t56.5 23.5Q760-193 760-160t-23.5 56.5Q713-80 680-80t-56.5-23.5ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z"/></svg>';
-  const button = document.createElement('button');
-  button.classList.add('menu-card-CTA');
-  button.innerText = 'Add to Cart';
-  button.insertAdjacentHTML('beforeend', svg);
-  button.addEventListener('click',(e)=>{
-      e.target.classList.remove('menu-card-CTA')
-      btnsvg = e.target.children[0]
-      button.innerText = 'Added to Cart';
-    btnsvg.style.display = "none";
-    e.target.classList.add('Added-fullmenu-btn')
-})
-  content.appendChild(title);
-  content.appendChild(desc);
-  content.appendChild(price);
-  content.appendChild(button);
-
-  card.appendChild(imageWrapper);
-  card.appendChild(content);
-  fullmenucardwarpper.append(card);
+    card.appendChild(imageWrapper);
+    card.appendChild(content);
+    fullmenucardwarpper.append(card);
+    fullmenucardwarppertital.innerHTML = `${tital}`;
 }

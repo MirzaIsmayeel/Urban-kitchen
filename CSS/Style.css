@@ -1092,6 +1092,11 @@ html {
     justify-content: center;
     align-items: center;
 }
+.tab-active{
+background: var(--Bg-colour);
+color: var(--text-colour);
+border: 1px solid var(--text-colour);
+}
 
 .menu-deshies-heading {
     font-family: var(--Heading-font-medium);
@@ -1114,7 +1119,7 @@ html {
     display: grid;
     padding: 0 80px;
     gap: 8px;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(240px, 270px));
 }
 
 .dishies-card {
