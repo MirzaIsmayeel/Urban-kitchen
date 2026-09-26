@@ -292,6 +292,7 @@ let Webfullmenu = [
         topsell: true
     },
 ]
+let order = []
 let tabbtns = document.querySelectorAll(".tab")
 let btnfilter
 
@@ -301,7 +302,7 @@ function menubtnfilter(btnfilter) {
     tabbtns.forEach(btn => {
         btn.addEventListener('click', (btn) => {
             btnfilter = btn.target.textContent
-            tabbtns.forEach((tab)=>{
+            tabbtns.forEach((tab) => {
                 tab.classList.remove('tab-active')
                 btn.target.classList.add('tab-active')
             })
@@ -354,15 +355,10 @@ function createMenuCard(menuitems, tital) {
     const button = document.createElement('button');
     button.classList.add('menu-card-CTA');
     button.innerText = 'Add to Cart';
+      button.addEventListener('click',(e)=>{
+        Order()
+      })
     button.insertAdjacentHTML('beforeend', svg);
-    button.addEventListener('click', (e) => {
-        e.target.classList.add('Added-fullmenu-btn')
-        e.target.style.backgroundColor = "#221300"
-        e.target.classList.remove('menu-card-CTA')
-        btnsvg = e.target.children[0]
-        button.innerText = 'Added to Cart';
-        btnsvg.style.display = "none";
-    })
     content.appendChild(title);
     content.appendChild(desc);
     content.appendChild(price);
@@ -372,4 +368,42 @@ function createMenuCard(menuitems, tital) {
     card.appendChild(content);
     fullmenucardwarpper.append(card);
     fullmenucardwarppertital.innerHTML = `${tital}`;
+}
+function Order() {
+ let BTNS = document.querySelectorAll('.menu-card-CTA')
+ console.log(BTNS)
+ BTNS.forEach(btns => {
+     btns.addEventListener('click',(e)=>{
+         currentbtn = e.currentTarget
+         currentbtn.classList.add('Added-fullmenu-btn')
+         addToCart()
+         currentbtn.style.backgroundColor = "#221300"
+         ordertital = currentbtn.parentElement.children[0].innerText
+         orderprize = currentbtn.parentElement.children[2].innerText
+         orderimg = currentbtn.parentElement.parentElement.children[0].children[0].getAttribute('src')
+         order.push({
+             Image:orderimg,
+             name:ordertital,
+             prize:orderprize,
+             orderquantity:1
+         })
+         localStorage.setItem('order',JSON.stringify(order) || [])
+         currentbtn.classList.remove('menu-card-CTA')
+         btnsvg = currentbtn.children[0]
+         btns.innerText = 'Added to Cart';
+     })
+ });
+}
+function addToCart(menuitems) {
+  let order = JSON.parse(localStorage.getItem('order')) || []; // default to empty array if nothing exists
+console.log(order)
+  const alreadyInCart = order.forEach(item =>console.log(menuitems,item));
+
+  if (!alreadyInCart) {
+    order.push(menuitems);
+    localStorage.setItem('order', JSON.stringify(order));
+    console.log('Added to cart');
+  } else {
+    console.log('Item already in cart');
+  }
 }
