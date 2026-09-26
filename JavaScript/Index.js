@@ -376,7 +376,7 @@ function Order() {
      btns.addEventListener('click',(e)=>{
          currentbtn = e.currentTarget
          currentbtn.classList.add('Added-fullmenu-btn')
-         addToCart()
+        //  addToCart()
          currentbtn.style.backgroundColor = "#221300"
          ordertital = currentbtn.parentElement.children[0].innerText
          orderprize = currentbtn.parentElement.children[2].innerText
@@ -393,17 +393,4 @@ function Order() {
          btns.innerText = 'Added to Cart';
      })
  });
-}
-function addToCart(menuitems) {
-  let order = JSON.parse(localStorage.getItem('order')) || []; // default to empty array if nothing exists
-console.log(order)
-  const alreadyInCart = order.forEach(item =>console.log(menuitems,item));
-
-  if (!alreadyInCart) {
-    order.push(menuitems);
-    localStorage.setItem('order', JSON.stringify(order));
-    console.log('Added to cart');
-  } else {
-    console.log('Item already in cart');
-  }
 }
