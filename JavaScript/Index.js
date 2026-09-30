@@ -32,7 +32,7 @@ function togllefullmenu() {
     if (fullmenu.classList.contains("invisible")) {
         topdeshies.classList.toggle("invisible")
         fullmenu.classList.toggle("invisible")
-        console.log(tabbtns[0].click())
+        tabbtns[0].click()
     }
     else {
         topdeshies.classList.remove("invisible")
@@ -45,6 +45,7 @@ HeroCTA.addEventListener("click", () => {
     if (fullmenu.classList.contains("invisible")) {
         topdeshies.classList.add("invisible")
         fullmenu.classList.remove("invisible")
+        tabbtns[0].click()
     }
 })
 FullMenuopen.addEventListener("click", togllefullmenu)
@@ -316,6 +317,7 @@ function menubtnfilter(btnfilter) {
     });
 }
 menubtnfilter(btnfilter)
+order = JSON.parse(localStorage.getItem('order')) || []
 function createMenuCard(menuitems, tital) {
     // Outer card
     const card = document.createElement('div');
@@ -353,12 +355,21 @@ function createMenuCard(menuitems, tital) {
     let btnsvg
     const svg = '<svg xmlns="http://www.w3.org/2000/svg" class="menu-card-CTA-icon" height="24px" viewBox="0 -960 960 960" width="24px" fill="221300"><path d="M223.5-103.5Q200-127 200-160t23.5-56.5Q247-240 280-240t56.5 23.5Q360-193 360-160t-23.5 56.5Q313-80 280-80t-56.5-23.5Zm400 0Q600-127 600-160t23.5-56.5Q647-240 680-240t56.5 23.5Q760-193 760-160t-23.5 56.5Q713-80 680-80t-56.5-23.5ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z"/></svg>';
     const button = document.createElement('button');
-    button.classList.add('menu-card-CTA');
-    button.innerText = 'Add to Cart';
-      button.addEventListener('click',(e)=>{
-        Order()
-      })
-    button.insertAdjacentHTML('beforeend', svg);
+    alreadyorder = order.some(item => item.name === menuitems.name)
+    if (alreadyorder) {
+        button.classList.add('Added-fullmenu-btn')
+        button.style.backgroundColor = "#221300"
+        button.innerText = 'Added to Cart';
+        button.disabled = true;
+    }
+    else {
+        button.classList.add('menu-card-CTA');
+        button.innerText = 'Add to Cart';
+        button.insertAdjacentHTML('beforeend', svg);
+        button.addEventListener('click', (clickbtn) => {
+            Order(clickbtn)
+        })
+    }
     content.appendChild(title);
     content.appendChild(desc);
     content.appendChild(price);
@@ -369,28 +380,25 @@ function createMenuCard(menuitems, tital) {
     fullmenucardwarpper.append(card);
     fullmenucardwarppertital.innerHTML = `${tital}`;
 }
-function Order() {
- let BTNS = document.querySelectorAll('.menu-card-CTA')
- console.log(BTNS)
- BTNS.forEach(btns => {
-     btns.addEventListener('click',(e)=>{
-         currentbtn = e.currentTarget
-         currentbtn.classList.add('Added-fullmenu-btn')
-        //  addToCart()
-         currentbtn.style.backgroundColor = "#221300"
-         ordertital = currentbtn.parentElement.children[0].innerText
-         orderprize = currentbtn.parentElement.children[2].innerText
-         orderimg = currentbtn.parentElement.parentElement.children[0].children[0].getAttribute('src')
-         order.push({
-             Image:orderimg,
-             name:ordertital,
-             prize:orderprize,
-             orderquantity:1
-         })
-         localStorage.setItem('order',JSON.stringify(order) || [])
-         currentbtn.classList.remove('menu-card-CTA')
-         btnsvg = currentbtn.children[0]
-         btns.innerText = 'Added to Cart';
-     })
- });
+let clickedbtn
+function Order(clickbtn) {
+   const clickedbtn = clickbtn.currentTarget
+    clickedbtn.classList.add('Added-fullmenu-btn')
+    clickedbtn.style.backgroundColor = "#221300"
+    ordertital = clickedbtn.parentElement.children[0].innerText
+    orderprize = clickedbtn.parentElement.children[2].innerText
+    orderimg = clickedbtn.parentElement.parentElement.children[0].children[0].getAttribute('src')
+    order.push({
+        Image: orderimg,
+        name: ordertital,
+        prize: orderprize,
+        orderquantity: 1,
+        disabled: true
+    })
+    localStorage.setItem('order', JSON.stringify(order))
+    clickedbtn.classList.remove('menu-card-CTA')
+    clickedbtn.innerText = 'Added to Cart';
+    clickedbtn.disabled = true;
 }
+
+
