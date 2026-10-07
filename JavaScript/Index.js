@@ -72,6 +72,21 @@ let dishiestop = [
         img: "assets/Top-deshies/Gemini_Generated_Image_d2r092d2r092d2r0.webp",
         name: "Pepperoni Pizza",
         prize: "500"
+    },
+    {
+        img: "assets/Top-deshies/Gemini_Generated_Image_d2r092d2r092d2r0.webp",
+        name: "Sindhi Biryani",
+        prize: "200"
+    },
+    {
+        img: "assets/Top-deshies/Gemini_Generated_Image_d2r092d2r092d2r0.webp",
+        name: "Cheese Burger",
+        prize: "280"
+    },
+    {
+        img: "assets/Top-deshies/Gemini_Generated_Image_d2r092d2r092d2r0.webp",
+        name: "Pepperoni Pizza",
+        prize: "500"
     }
 ]
 // make sure the dishiestop is is not empty
@@ -137,6 +152,36 @@ function createDeshiCard(dishes) {
     card.appendChild(content);
 
     topdisheswapper.append(card);
+}
+// slideer for top dishies
+let forwordarrow = document.querySelector(".forword-arrow")
+let reversearrow = document.querySelector(".reverce-arrow")
+let topdesieswappe = document.querySelector('.top-deshies-card-main')
+let topdesieswapper = document.querySelector('.top-deshies-card-wapper')
+forwordarrow.addEventListener('click',(e)=>{
+    slideforwordtopdishies()
+})
+reversearrow.addEventListener('click',(e)=>{
+    slidereversetopdishies()
+})
+
+let val = 0
+const maxscrollablewith = topdesieswappe.scrollWidth - topdesieswappe.clientWidth
+function slideforwordtopdishies(){
+    val+= 300
+    reversearrow.style.display = "flex"
+    topdesieswappe.scrollLeft = val
+    if(maxscrollablewith === topdesieswappe.scrollLeft){
+        forwordarrow.style.display = "none"
+    }
+}
+function slidereversetopdishies(){
+    val-= 300
+    forwordarrow.style.display = "flex"
+    topdesieswappe.scrollLeft = val
+    if(val === 0){
+        reversearrow.style.display = 'none'
+    }
 }
 // Array for full menu
 let Webfullmenu = [
