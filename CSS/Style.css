@@ -297,8 +297,8 @@ html {
 .hero-heading {
     font-family: var(--Heading-font-medium);
     font-size: 65.04px;
-    line-height: 75px;
-    letter-spacing: -1px;
+    line-height: 81.03px;
+    letter-spacing: 0px;
     margin-bottom: 8px;
     height: auto;
 }
@@ -307,7 +307,7 @@ html {
     font-family: var(--text-font-regular);
     font-size: 20px;
     margin-bottom: 24px;
-    line-height: 24px;
+    line-height: 25px;
     width: 747px;
 }
 
@@ -1093,10 +1093,11 @@ html {
     justify-content: center;
     align-items: center;
 }
-.tab-active{
-background: var(--Bg-colour);
-color: var(--text-colour);
-border: 1px solid var(--text-colour);
+
+.tab-active {
+    background: var(--Bg-colour);
+    color: var(--text-colour);
+    border: 1px solid var(--text-colour);
 }
 
 .menu-deshies-heading {
@@ -1131,8 +1132,9 @@ border: 1px solid var(--text-colour);
     border-radius: 8px;
     transition: 0.2s ease-in-out;
 }
+
 .dishies-card:hover {
-transform: translateY(1px);
+    transform: translateY(1px);
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.423);
 }
 
@@ -1663,10 +1665,10 @@ transform: translateY(1px);
 
 .testimonials-cards-section {
     display: flex;
-    align-items: center;
-    margin: 0 80px;
-    justify-content: center;
-    position: relative;
+    /* align-items: center; */
+    gap: 8px;
+    /* justify-content: center; */
+    /* position: relative; */
 }
 
 .arrow-btn-reverce {
@@ -1717,15 +1719,28 @@ transform: translateY(1px);
 .arrow-btn-reverce:hover {
     background-color: #f0f0f0;
 }
-
 .testimonials-cards-main {
     display: flex;
-    align-items: center;
+    flex-shrink: 0;           /* group must never shrink */
     gap: 8px;
-    overflow: auto;
-    height: auto;
-    scrollbar-width: none;
+    min-width: 100%;
+    animation: testimonials-scroll 30s linear infinite;
 }
+
+@keyframes testimonials-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(calc(-100% - 8px)); }
+}
+
+/* @keyframes rotate {
+   from{
+        transform: translateX(0%);
+    }
+    to {
+        transform: translateX(-70%);
+    }
+
+} */
 
 .testimonials-cards {
     flex: 0 0 320px;
@@ -3153,9 +3168,11 @@ transform: translateY(1px);
     .deshies-main {
         gap: 2px;
     }
+
     .menu-card-para {
         font-size: 13px;
     }
+
     .menu-dishies-card-contant {
         margin: 4px;
     }

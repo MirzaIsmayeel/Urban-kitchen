@@ -56,6 +56,8 @@ NavMenuBtn[1].addEventListener("click", () => {
         fullmenu.classList.remove("invisible")
     }
 })
+// Order
+let order = JSON.parse(localStorage.getItem('order'))||[]
 // Arry for Top deshies cards
 let dishiestop = [
     {
@@ -75,18 +77,18 @@ let dishiestop = [
     },
     {
         img: "assets/Top-deshies/Gemini_Generated_Image_d2r092d2r092d2r0.webp",
-        name: "Sindhi Biryani",
+        name: "Zinger Shawarma",
         prize: "200"
     },
     {
         img: "assets/Top-deshies/Gemini_Generated_Image_d2r092d2r092d2r0.webp",
-        name: "Cheese Burger",
-        prize: "280"
+        name: "Anda Burger",
+        prize: "180"
     },
     {
         img: "assets/Top-deshies/Gemini_Generated_Image_d2r092d2r092d2r0.webp",
-        name: "Pepperoni Pizza",
-        prize: "500"
+        name: "Chicken burger",
+        prize: "220"
     }
 ]
 // make sure the dishiestop is is not empty
@@ -133,13 +135,26 @@ function createDeshiCard(dishes) {
     price.textContent = `Rs: ${dishes.prize}`;
 
     const addBtn = document.createElement('button');
-    addBtn.classList.add('deshies-CTA');
-    addBtn.textContent = 'Add';
-    addBtn.addEventListener("click", (e) => {
+    const topalreadyorder = order.some(item=> item.name == dishes.name)
+    if(topalreadyorder){
+        console.log("ok")
         addBtn.textContent = 'Added';
-        e.target.classList.remove('deshies-CTA');
-        e.target.classList.add('Added-topdishies-btn')
-    })
+        addBtn.classList.remove('deshies-CTA');
+        addBtn.classList.add('Added-topdishies-btn')
+        addBtn.disabled = 'true'
+    }
+    else{
+        addBtn.textContent = 'Add';
+            addBtn.classList.add('deshies-CTA');
+            addBtn.addEventListener("click", (e) => {
+                Id = 'topdishies'
+                Order(e.currentTarget, Id)
+                addBtn.textContent = 'Added';
+        addBtn.classList.remove('deshies-CTA');
+        addBtn.classList.add('Added-topdishies-btn')
+        addBtn.disabled = 'true'
+            })
+        }
 
     priceRow.appendChild(price);
     priceRow.appendChild(addBtn);
@@ -158,28 +173,28 @@ let forwordarrow = document.querySelector(".forword-arrow")
 let reversearrow = document.querySelector(".reverce-arrow")
 let topdesieswappe = document.querySelector('.top-deshies-card-main')
 let topdesieswapper = document.querySelector('.top-deshies-card-wapper')
-forwordarrow.addEventListener('click',(e)=>{
+forwordarrow.addEventListener('click', (e) => {
     slideforwordtopdishies()
 })
-reversearrow.addEventListener('click',(e)=>{
+reversearrow.addEventListener('click', (e) => {
     slidereversetopdishies()
 })
 
 let val = 0
 const maxscrollablewith = topdesieswappe.scrollWidth - topdesieswappe.clientWidth
-function slideforwordtopdishies(){
-    val+= 300
+function slideforwordtopdishies() {
+    val += 300
     reversearrow.style.display = "flex"
     topdesieswappe.scrollLeft = val
-    if(maxscrollablewith === topdesieswappe.scrollLeft){
+    if (maxscrollablewith === topdesieswappe.scrollLeft) {
         forwordarrow.style.display = "none"
     }
 }
-function slidereversetopdishies(){
-    val-= 300
+function slidereversetopdishies() {
+    val -= 300
     forwordarrow.style.display = "flex"
     topdesieswappe.scrollLeft = val
-    if(val === 0){
+    if (val === 0) {
         reversearrow.style.display = 'none'
     }
 }
@@ -338,12 +353,12 @@ let Webfullmenu = [
         topsell: true
     },
 ]
-let order = []
 let tabbtns = document.querySelectorAll(".tab")
 let btnfilter
 
 let fullmenucardwarppertital = document.querySelector(".menu-deshies-heading")
 let fullmenucardwarpper = document.querySelector(".deshies-main")
+
 function menubtnfilter(btnfilter) {
     tabbtns.forEach(btn => {
         btn.addEventListener('click', (btn) => {
@@ -412,7 +427,8 @@ function createMenuCard(menuitems, tital) {
         button.innerText = 'Add to Cart';
         button.insertAdjacentHTML('beforeend', svg);
         button.addEventListener('click', (clickbtn) => {
-            Order(clickbtn)
+            Id = "FullMenu"
+            Order(clickbtn, Id)
         })
     }
     content.appendChild(title);
@@ -427,23 +443,55 @@ function createMenuCard(menuitems, tital) {
 }
 let clickedbtn
 function Order(clickbtn) {
-   const clickedbtn = clickbtn.currentTarget
-    clickedbtn.classList.add('Added-fullmenu-btn')
-    clickedbtn.style.backgroundColor = "#221300"
-    ordertital = clickedbtn.parentElement.children[0].innerText
-    orderprize = clickedbtn.parentElement.children[2].innerText
-    orderimg = clickedbtn.parentElement.parentElement.children[0].children[0].getAttribute('src')
-    order.push({
-        Image: orderimg,
-        name: ordertital,
-        prize: orderprize,
-        orderquantity: 1,
-        disabled: true
-    })
-    localStorage.setItem('order', JSON.stringify(order))
-    clickedbtn.classList.remove('menu-card-CTA')
-    clickedbtn.innerText = 'Added to Cart';
-    clickedbtn.disabled = true;
+    if (Id == "topdishies") {
+        console.log(Id)
+        const topdishiestital = clickbtn.parentElement.parentElement.children[0].innerText
+        const topdishiesprize = clickbtn.parentElement.children[0].innerText.split("Rs:")[1]
+        const topdishiesimg = clickbtn.parentElement.parentElement.parentElement.children[0].children[0].getAttribute('src')
+        // const topalreadyorder = order.some(item =>item.name === topdishiestital)
+        // console.log(topalreadyorder)
+        // if(topalreadyorder){
+        //     console.log("ok")
+        //     clickbtn.textContent = 'Added';
+        //     clickbtn.classList.remove('deshies-CTA');
+        //     clickbtn.classList.add('Added-topdishies-btn')
+        //     return
+        // }
+        // else{
+        order.push({
+            Image: topdishiesimg,
+            name: topdishiestital,
+            prize: topdishiesprize,
+            orderquantity: 1,
+            disabled: true
+        })
+        // clickbtn.textContent = 'Added';
+        // clickbtn.classList.remove('deshies-CTA');
+        // clickbtn.classList.add('Added-topdishies-btn')
+        localStorage.setItem('order', JSON.stringify(order))
+        // console.log(order)
+        // }
+    }
+    else if (Id == 'FullMenu') {
+        console.log(Id)
+        const clickedbtn = clickbtn.currentTarget
+        clickedbtn.classList.add('Added-fullmenu-btn')
+        clickedbtn.style.backgroundColor = "#221300"
+        ordertital = clickedbtn.parentElement.children[0].innerText
+        orderprize = clickedbtn.parentElement.children[2].innerText
+        orderimg = clickedbtn.parentElement.parentElement.children[0].children[0].getAttribute('src')
+        order.push({
+            Image: orderimg,
+            name: ordertital,
+            prize: orderprize,
+            orderquantity: 1,
+            disabled: true
+        })
+        order = localStorage.setItem('order', JSON.stringify(order))
+        clickedbtn.classList.remove('menu-card-CTA')
+        clickedbtn.innerText = 'Added to Cart';
+        clickedbtn.disabled = true;
+    }
 }
 
 
