@@ -6,6 +6,8 @@ let blurlayer = document.querySelector(".blur-layer")
 let TopDeshiesopen = document.querySelector(".top-deshies-menu")
 let FullMenuopen = document.querySelector(".Menu-deshies-menu")
 let HeroCTA = document.querySelector(".hero-CTA")
+let reservationpopop = document.querySelector(".reservation")
+let reservation = document.querySelector(".photo-CTA")
 let Sidebarauto = () => {
     Sidebar.classList.toggle('sidebar-container-open')
     blurlayer.classList.toggle('blur-layer-open')
@@ -39,6 +41,11 @@ function togllefullmenu() {
         fullmenu.classList.add("invisible")
     }
 }
+// Poppop for reservation form
+reservation.addEventListener('click',()=>{
+    reservationpopop.style.display = "flex"
+}) 
+// 
 TopDeshiesopen.addEventListener("click", togllefullmenu)
 // Create arrow function for hero-CTA to add invisible to topdeshies and remove insivible to full menu
 HeroCTA.addEventListener("click", () => {
