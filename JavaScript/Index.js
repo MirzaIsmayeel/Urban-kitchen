@@ -9,6 +9,7 @@ let HeroCTA = document.querySelector(".hero-CTA")
 let reservationpopop = document.querySelector(".reservation-layer")
 let reservation = document.querySelector(".photo-CTA")
 let reservationcard = document.querySelector(".reservation-card")
+let reservationcta = document.querySelector(".reservation-btn")
 let Sidebarauto = () => {
     Sidebar.classList.toggle('sidebar-container-open')
     blurlayer.classList.toggle('blur-layer-open')
@@ -60,6 +61,33 @@ reservationpopop.addEventListener('click',()=>{
     reservationpopop.style.display = "none"
     document.documentElement.classList.remove('no-scroll');
     reservationcard.style.display ='none'
+})
+// Reservation to whatsapp
+let reservationform = document.querySelector(".reservation-form")
+let reservationname = document.querySelector("#res-name")
+let reservationphonenumber = document.querySelector("#res-phone")
+let reservationguest = document.querySelector("#res-guests")
+let reservationdate = document.querySelector("#res-date")
+let reservationorders = JSON.parse(localStorage.getItem("reservations"))||[]
+reservationform.addEventListener('submit', (e)=>{
+    e.preventDefault()
+    const alreadyreseve = reservationorders.some(item=> item.Name == reservationname.value || item.PhoneNumber == reservationphonenumber.value)
+    if(alreadyreseve){
+        alert("already reverve",alreadyreseve)
+    }
+    else{
+        reservationorders.push({
+            Name : reservationname.value,
+            PhoneNumber : reservationphonenumber.value,
+            Guests : reservationguest.value,
+            Date : reservationdate.value
+        })
+        localStorage.setItem("reservations",JSON.stringify(reservationorders))
+        console.log("reservation working",reservationorders)
+        reservationpopop.style.display = "none"
+          reservationcard.style.display ='none'
+          document.documentElement.classList.remove('no-scroll');
+    }
 })
 // 
 TopDeshiesopen.addEventListener("click", togllefullmenu)
