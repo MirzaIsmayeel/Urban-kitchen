@@ -44,54 +44,97 @@ function togllefullmenu() {
     }
 }
 // Poppop for reservation form
-function openreservationmodal(){
+function openreservationmodal() {
     reservationpopop.style.display = "flex"
-    reservationcard.style.display ='unset'
+    reservationcard.style.display = 'unset'
     document.documentElement.classList.add('no-scroll');
-    
+
 }
 document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
         reservationpopop.style.display = "none"
-        reservationcard.style.display ='none'
+        reservationcard.style.display = 'none'
         document.documentElement.classList.remove('no-scroll');
     }
 })
-reservationpopop.addEventListener('click',()=>{
+reservationpopop.addEventListener('click', () => {
     reservationpopop.style.display = "none"
     document.documentElement.classList.remove('no-scroll');
-    reservationcard.style.display ='none'
+    reservationcard.style.display = 'none'
 })
 // Reservation to whatsapp
+const today = new Date();
+
+// Format as YYYY-MM-DD
+const yyyy = today.getFullYear();
+const mm = String(today.getMonth() + 1).padStart(2, '0');
+const dd = String(today.getDate()).padStart(2, '0');
+
+const minDate = `${yyyy}-${mm}-${dd}`;
+
+// Apply min attribute to the input
 let reservationform = document.querySelector(".reservation-form")
 let reservationname = document.querySelector("#res-name")
 let reservationphonenumber = document.querySelector("#res-phone")
 let reservationguest = document.querySelector("#res-guests")
 let reservationdate = document.querySelector("#res-date")
-let reservationorders = JSON.parse(localStorage.getItem("reservations"))||[]
+reservationdate.setAttribute('min', minDate);
+let reservationorders = JSON.parse(localStorage.getItem("reservations")) || []
 let reservaiontost = document.querySelector(".toast")
-reservationform.addEventListener('submit', (e)=>{
+let reservaionerror = document.querySelectorAll(".error")
+reservationform.addEventListener('submit', (e) => {
     e.preventDefault()
-    const alreadyreseve = reservationorders.some(item=> item.Name == reservationname.value || item.PhoneNumber == reservationphonenumber.value)
-    if(alreadyreseve){
-         toast.classList.add('show')
-         setTimeout(() => {
-             toast.classList.remove('show')
-         }, 3000);
+    const alreadyreseve = reservationorders.some(item => item.Name == reservationname.value || item.PhoneNumber == reservationphonenumber.value)
+    // if(reservationname.text.includes('ismayeel')){
+    const reservationformvalidation = ["-", "-", "]", "+", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
+    const reservationformvalidationnumbers = [
+        // small letters
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+        'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+
+        // capital letters
+        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+        'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+
+        // symbols
+        '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+',
+        '[', ']', '{', '}', ';', ':', "'", '"', ',', '.', '<', '>', '/', '?', '\\', '|', '`', '~'
+    ];
+    console.log(reservationformvalidation.some(chr => reservationname.value.includes(chr)), reservationname.value.length <= 3)
+    if (reservationformvalidation.some(chr => reservationname.value.includes(chr)) || reservationname.value.length <= 3) {
+        reservaionerror[0].style.display = "unset"
     }
-    else{
-        reservationorders.push({
-            Name : reservationname.value,
-            PhoneNumber : reservationphonenumber.value,
-            Guests : reservationguest.value,
-            Date : reservationdate.value
-        })
-        localStorage.setItem("reservations",JSON.stringify(reservationorders))
-        console.log("reservation working",reservationorders)
-        reservationpopop.style.display = "none"
-          reservationcard.style.display ='none'
-          document.documentElement.classList.remove('no-scroll');
+    else if (reservationphonenumber.value.includes(reservationformvalidationnumbers) || reservationphonenumber.value.length < 10) {
+        reservaionerror[1].style.display = "unset"
     }
+    else if (reservationguest.value > 20 || reservationguest.value == '' || reservationguest.value <= 0) {
+        reservaionerror[2].style.display = "unset"
+    }
+    else if (reservationdate.value == '') {
+        reservaionerror[3].style.display = "unset"
+    }
+    else {
+        if (alreadyreseve) {
+            toast.classList.add('show')
+            setTimeout(() => {
+                toast.classList.remove('show')
+            }, 3000);
+        }
+        else {
+            reservationorders.push({
+                Name: reservationname.value,
+                PhoneNumber: reservationphonenumber.value,
+                Guests: reservationguest.value,
+                Date: reservationdate.value
+            })
+            localStorage.setItem("reservations", JSON.stringify(reservationorders))
+            console.log("reservation working", reservationorders)
+            reservationpopop.style.display = "none"
+            reservationcard.style.display = 'none'
+            document.documentElement.classList.remove('no-scroll');
+        }
+    }
+    // }
 })
 // reservation tost
 
@@ -114,7 +157,7 @@ NavMenuBtn[1].addEventListener("click", () => {
     }
 })
 // Order
-let order = JSON.parse(localStorage.getItem('order'))||[]
+let order = JSON.parse(localStorage.getItem('order')) || []
 // Arry for Top deshies cards
 let dishiestop = [
     {
@@ -192,26 +235,26 @@ function createDeshiCard(dishes) {
     price.textContent = `Rs: ${dishes.prize}`;
 
     const addBtn = document.createElement('button');
-    const topalreadyorder = order.some(item=> item.name == dishes.name)
-    if(topalreadyorder){
+    const topalreadyorder = order.some(item => item.name == dishes.name)
+    if (topalreadyorder) {
         console.log("ok")
         addBtn.textContent = 'Added';
         addBtn.classList.remove('deshies-CTA');
         addBtn.classList.add('Added-topdishies-btn')
         addBtn.disabled = 'true'
     }
-    else{
+    else {
         addBtn.textContent = 'Add';
-            addBtn.classList.add('deshies-CTA');
-            addBtn.addEventListener("click", (e) => {
-                Id = 'topdishies'
-                Order(e.currentTarget, Id)
-                addBtn.textContent = 'Added';
-        addBtn.classList.remove('deshies-CTA');
-        addBtn.classList.add('Added-topdishies-btn')
-        addBtn.disabled = 'true'
-            })
-        }
+        addBtn.classList.add('deshies-CTA');
+        addBtn.addEventListener("click", (e) => {
+            Id = 'topdishies'
+            Order(e.currentTarget, Id)
+            addBtn.textContent = 'Added';
+            addBtn.classList.remove('deshies-CTA');
+            addBtn.classList.add('Added-topdishies-btn')
+            addBtn.disabled = 'true'
+        })
+    }
 
     priceRow.appendChild(price);
     priceRow.appendChild(addBtn);

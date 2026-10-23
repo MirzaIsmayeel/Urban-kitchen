@@ -948,29 +948,26 @@
                 <form class="reservation-form">
                     <div class="form-group">
                         <label for="res-name">Name</label>
-                        <input type="text" id="res-name" name="name" placeholder="Your full name" required minlength="2"
-                            maxlength="50" pattern="[A-Za-z\s]+">
-                        <small class="error">Enter your name (letters only, at least 2 characters).</small>
+                        <input type="text" id="res-name" name="name" placeholder="Your full name">
+                        <small class="error">Enter your name (letters only, at least 3 characters).</small>
                     </div>
 
                     <div class="form-group">
                         <label for="res-phone">Phone number</label>
-                        <input type="tel" id="res-phone" name="phone" placeholder="+92 300 1234567" required
-                            pattern="\+?[0-9\s\-]{10,15}">
+                        <input type="tel" id="res-phone" name="phone" placeholder="+92 300 1234567"">
                         <small class="error">Enter a valid phone number (10 to 15 digits).</small>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label for="res-guests">Number of guests</label>
-                            <input type="number" id="res-guests" name="guests" placeholder="Guests" required min="1"
-                                max="20">
+                            <input type="number" id="res-guests" name="guests" placeholder="Guests">
                             <small class="error">Choose between 1 and 20 guests.</small>
                         </div>
 
                         <div class="form-group">
                             <label for="res-date">Reservation date</label>
-                            <input type="date" id="res-date" name="date" required>
+                            <input type="date" id="res-date" name="date">
                             <small class="error">Choose a reservation date.</small>
                         </div>
                     </div>
