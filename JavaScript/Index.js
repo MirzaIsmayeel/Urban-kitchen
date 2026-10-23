@@ -69,11 +69,16 @@ let reservationphonenumber = document.querySelector("#res-phone")
 let reservationguest = document.querySelector("#res-guests")
 let reservationdate = document.querySelector("#res-date")
 let reservationorders = JSON.parse(localStorage.getItem("reservations"))||[]
+let reservaiontost = document.querySelector(".toast")
 reservationform.addEventListener('submit', (e)=>{
     e.preventDefault()
     const alreadyreseve = reservationorders.some(item=> item.Name == reservationname.value || item.PhoneNumber == reservationphonenumber.value)
     if(alreadyreseve){
         alert("already reverve",alreadyreseve)
+         toast.classList.add('show')
+         setTimeout(() => {
+             toast.classList.remove('show')
+         }, 3000);
     }
     else{
         reservationorders.push({
@@ -89,6 +94,8 @@ reservationform.addEventListener('submit', (e)=>{
           document.documentElement.classList.remove('no-scroll');
     }
 })
+// reservation tost
+
 // 
 TopDeshiesopen.addEventListener("click", togllefullmenu)
 // Create arrow function for hero-CTA to add invisible to topdeshies and remove insivible to full menu

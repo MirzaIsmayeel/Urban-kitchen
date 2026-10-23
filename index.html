@@ -948,51 +948,6 @@
                 <form class="reservation-form">
                     <div class="form-group">
                         <label for="res-name">Name</label>
-                        <input type="text" id="res-name" name="name" placeholder="Your full name" required
-                            minlength="2" maxlength="50" pattern="[A-Za-z\s]+">
-                        <small class="error">Enter your name (letters only, at least 2 characters).</small>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="res-phone">Phone number</label>
-                        <input type="tel" id="res-phone" name="phone" placeholder="+92 300 1234567" required
-                            pattern="\+?[0-9\s\-]{10,15}">
-                        <small class="error">Enter a valid phone number (10 to 15 digits).</small>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="res-guests">Number of guests</label>
-                            <input type="number" id="res-guests" name="guests" placeholder="Guests" required min="1"
-                                max="20">
-                            <small class="error">Choose between 1 and 20 guests.</small>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="res-date">Reservation date</label>
-                            <input type="date" id="res-date" name="date" required>
-                            <small class="error">Choose a reservation date.</small>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="reservation-btn">
-                        Reserve table
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"
-                            class="reservation-form-CTA-icon" fill="221300">
-                            <path
-                                d="M173-600h614l-34-120H208l-35 120Zm307-60Zm192 140H289l-11 80h404l-10-80ZM160-160l49-360h-89q-20 0-31.5-16T82-571l57-200q4-13 14-21t24-8h606q14 0 24 8t14 21l57 200q5 19-6.5 35T840-520h-88l48 360h-80l-27-200H267l-27 200h-80Z" />
-                        </svg>
-                    </button>
-                </form>
-            </div>
-        </section>
-        <div class="reservation-layer">
-            <div class="reservation-card">
-                <h2>Reserve a table</h2>
-                <p class="reservation-sub">Fill in your details and we'll confirm your booking.</p>
-                <form class="reservation-form">
-                    <div class="form-group">
-                        <label for="res-name">Name</label>
                         <input type="text" id="res-name" name="name" placeholder="Your full name" required minlength="2"
                             maxlength="50" pattern="[A-Za-z\s]+">
                         <small class="error">Enter your name (letters only, at least 2 characters).</small>
@@ -1030,6 +985,13 @@
                     </button>
                 </form>
             </div>
+        </section>
+        <div class="toast" id="toast" role="status" aria-live="polite">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="221300">
+                <path
+                    d="m336-280 144-144 144 144 56-56-144-144 144-144-56-56-144 144-144-144-56 56 144 144-144 144 56 56ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
+            </svg>
+            <span>Your reservation is already done!</span>
         </div>
         <section class="contact-us">
             <h2>Contact Us</h2>
