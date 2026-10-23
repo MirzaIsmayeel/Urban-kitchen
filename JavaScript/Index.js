@@ -74,7 +74,6 @@ reservationform.addEventListener('submit', (e)=>{
     e.preventDefault()
     const alreadyreseve = reservationorders.some(item=> item.Name == reservationname.value || item.PhoneNumber == reservationphonenumber.value)
     if(alreadyreseve){
-        alert("already reverve",alreadyreseve)
          toast.classList.add('show')
          setTimeout(() => {
              toast.classList.remove('show')
