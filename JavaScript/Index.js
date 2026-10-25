@@ -127,6 +127,20 @@ reservationform.addEventListener('submit', (e) => {
                 Guests: reservationguest.value,
                 Date: reservationdate.value
             })
+            const RESTAURANT_WHATSAPP_NUMBER = '923480412436'
+            const message =
+                '--------------------*New Table Reservation*--------------------\n' +
+
+                'Name: ' + reservationname.value + '\n' +
+                'Phone: ' + reservationphonenumber.value + '\n' +
+                'Date: ' + reservationdate.value + '\n' +
+                'Guests: ' + reservationguest.value+ '\n\n' +
+
+
+                '*NOTE: If no table is free, reply quickly with another time or date. Do not leave the customer waiting.*';
+
+            const url = 'https://wa.me/' + RESTAURANT_WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
+            window.open(url, '_blank');
             localStorage.setItem("reservations", JSON.stringify(reservationorders))
             console.log("reservation working", reservationorders)
             reservationpopop.style.display = "none"

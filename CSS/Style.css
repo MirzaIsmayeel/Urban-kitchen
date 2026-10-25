@@ -73,7 +73,7 @@ html {
 
 /* Navbar */
 .navbar {
-    position: absolute;
+    position: fixed;
     z-index: 4;
     margin: 0 0 120px 0;
     width: 100%;
