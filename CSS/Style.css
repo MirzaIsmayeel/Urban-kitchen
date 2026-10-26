@@ -660,7 +660,7 @@ html {
     right: 2%;
     z-index: 3;
     fill: var(--Bg-colour);
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     box-shadow: 1px 1px 5px var(--text-colour);

@@ -134,7 +134,7 @@ reservationform.addEventListener('submit', (e) => {
                 'Name: ' + reservationname.value + '\n' +
                 'Phone: ' + reservationphonenumber.value + '\n' +
                 'Date: ' + reservationdate.value + '\n' +
-                'Guests: ' + reservationguest.value+ '\n\n' +
+                'Guests: ' + reservationguest.value + '\n\n' +
 
 
                 '*NOTE: If no table is free, reply quickly with another time or date. Do not leave the customer waiting.*';
@@ -251,7 +251,6 @@ function createDeshiCard(dishes) {
     const addBtn = document.createElement('button');
     const topalreadyorder = order.some(item => item.name == dishes.name)
     if (topalreadyorder) {
-        console.log("ok")
         addBtn.textContent = 'Added';
         addBtn.classList.remove('deshies-CTA');
         addBtn.classList.add('Added-topdishies-btn')
@@ -492,6 +491,10 @@ function menubtnfilter(btnfilter) {
 }
 menubtnfilter(btnfilter)
 order = JSON.parse(localStorage.getItem('order')) || []
+let ordercart = document.querySelector(".cart")
+if (order.length > 0) {
+    ordercart.style.display = 'flex'
+}
 function createMenuCard(menuitems, tital) {
     // Outer card
     const card = document.createElement('div');
@@ -579,6 +582,9 @@ function Order(clickbtn) {
             orderquantity: 1,
             disabled: true
         })
+        if (order.length > 0) {
+            ordercart.style.display = 'flex'
+        }
         // clickbtn.textContent = 'Added';
         // clickbtn.classList.remove('deshies-CTA');
         // clickbtn.classList.add('Added-topdishies-btn')
@@ -601,6 +607,9 @@ function Order(clickbtn) {
             orderquantity: 1,
             disabled: true
         })
+        if (order.length > 0) {
+            ordercart.style.display = 'flex'
+        }
         order = localStorage.setItem('order', JSON.stringify(order))
         clickedbtn.classList.remove('menu-card-CTA')
         clickedbtn.innerText = 'Added to Cart';
