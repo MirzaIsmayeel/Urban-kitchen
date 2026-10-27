@@ -10,6 +10,7 @@ let reservationpopop = document.querySelector(".reservation-layer")
 let reservation = document.querySelector(".photo-CTA")
 let reservationcard = document.querySelector(".reservation-card")
 let reservationcta = document.querySelector(".reservation-btn")
+let ordercart = document.querySelector(".cart")
 let Sidebarauto = () => {
     Sidebar.classList.toggle('sidebar-container-open')
     blurlayer.classList.toggle('blur-layer-open')
@@ -471,6 +472,7 @@ let btnfilter
 
 let fullmenucardwarppertital = document.querySelector(".menu-deshies-heading")
 let fullmenucardwarpper = document.querySelector(".deshies-main")
+let checkoutpage = document.querySelector(".Checkout")
 
 function menubtnfilter(btnfilter) {
     tabbtns.forEach(btn => {
@@ -490,11 +492,88 @@ function menubtnfilter(btnfilter) {
     });
 }
 menubtnfilter(btnfilter)
+let checkoutmain = document.querySelector(".checkout-main")
 order = JSON.parse(localStorage.getItem('order')) || []
-let ordercart = document.querySelector(".cart")
+ordercart.addEventListener('click',()=>{
+    checkoutmain.innerHTML = ''
+    order.forEach((orders) => {
+        createCheckoutCard(orders)
+    })
+})
+function createIcon(className, pathData) {
+    const SVG_NS = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(SVG_NS, 'svg');
+    svg.setAttribute('class', className);
+    svg.setAttribute('viewBox', '0 -960 960 960');
+
+    const path = document.createElementNS(SVG_NS, 'path');
+    path.setAttribute('d', pathData);
+
+    svg.appendChild(path);
+    return svg;
+}
+function createCheckoutCard(orders) {
+    const card = document.createElement('div');
+    card.className = 'checkout-cards';
+    card.dataset.id = orders.id;
+    console.log(orders)
+    // Image
+    const imageWrap = document.createElement('div');
+    imageWrap.className = 'checkout-images';
+
+    const img = document.createElement('img');
+    img.className = 'checkout-card-image';
+    img.src = orders.Image;
+    img.alt = orders.name;
+    imageWrap.appendChild(img);
+
+    // Content
+    const content = document.createElement('div');
+    content.className = 'checkout-card-content';
+
+    const title = document.createElement('h4');
+    title.textContent = orders.name;
+
+    const price = document.createElement('h5');
+    price.textContent = 'Rs: ' + orders.prize;
+
+    // Button: + quantity -
+    const button = document.createElement('button');
+    button.className = 'checkout-cards-CTA';
+    const addIcon = createIcon(
+        'checkout-cards-add',
+        'M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z'
+    )
+    // const addIcon = `<svg class="checkout-cards-add" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"> <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" /> </svg>`
+    // const removeIcon = `<svg class="checkout-cards-remove" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"> <path d="M200-440v-80h560v80H200Z" /> </svg>`
+    const qty = document.createElement('span');
+    qty.textContent = orders.orderquantity;
+    qty.className = 'checkout-cards-qty';
+    const removeIcon = createIcon(
+        'checkout-cards-remove',
+        'M200-440v-80h560v80H200Z'
+    );
+
+    button.append(addIcon, qty, removeIcon);
+    content.append(title, price, button);
+    card.append(imageWrap, content);
+    checkoutmain.append(card);
+}
+let ordercartclose = document.querySelector(".checkout-close")
 if (order.length > 0) {
     ordercart.style.display = 'flex'
 }
+ordercart.addEventListener('click', () => {
+    checkoutpage.style.display = 'flex'
+    document.body.scroll = false
+    blurlayer.classList.toggle('blur-layer-open')
+    document.documentElement.classList.add('no-scroll');
+})
+ordercartclose.addEventListener('click', () => {
+    checkoutpage.style.display = 'none'
+    blurlayer.classList.toggle('blur-layer-open')
+    document.documentElement.classList.remove('no-scroll');
+})
 function createMenuCard(menuitems, tital) {
     // Outer card
     const card = document.createElement('div');
