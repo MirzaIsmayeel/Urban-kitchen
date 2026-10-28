@@ -499,7 +499,7 @@ let checkoutmain = document.querySelector(".checkout-main")
 order.forEach((order) => {
     createCheckoutCard(order)
 })
-function addtocheckout(){
+function addtocheckout() {
     checkoutmain.innerHTML = ''
     order.forEach((order) => {
         createCheckoutCard(order)
@@ -517,6 +517,7 @@ function createIcon(className, pathData) {
     svg.appendChild(path);
     return svg;
 }
+let orderqty = 1
 function createCheckoutCard(orders) {
     const card = document.createElement('div');
     card.className = 'checkout-cards';
@@ -553,11 +554,27 @@ function createCheckoutCard(orders) {
     // const removeIcon = `<svg class="checkout-cards-remove" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"> <path d="M200-440v-80h560v80H200Z" /> </svg>`
     const qty = document.createElement('span');
     qty.textContent = orders.orderquantity;
+    addIcon.addEventListener('click', () => {
+        orders.orderquantity++
+        localStorage.setItem('order', JSON.stringify(order));
+        qty.textContent = orders.orderquantity;
+    })
     qty.className = 'checkout-cards-qty';
     const removeIcon = createIcon(
         'checkout-cards-remove',
         'M200-440v-80h560v80H200Z'
     );
+    removeIcon.addEventListener('click', () => {
+        orders.orderquantity--
+        localStorage.setItem('order', JSON.stringify(order));
+        if (orders.orderquantity > 0) {
+            qty.textContent = orders.orderquantity;
+        }
+        else {
+            console.log(orders.orderquantity)
+            alert("item remove")
+        }
+    })
 
     button.append(addIcon, qty, removeIcon);
     content.append(title, price, button);
