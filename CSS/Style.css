@@ -690,7 +690,7 @@ html {
     overflow-y: auto;
     scrollbar-width: none;
     background-color: var(--Bg-colour);
-    z-index: 4;
+    z-index: 5;
     padding: 20px 10px 10px 10px;
 }
 
@@ -743,6 +743,9 @@ html {
     box-shadow: #00000030 1px 1px 5px;
     border-radius: 8px;
     overflow: hidden;
+}
+.checkout-cards:hover {
+    box-shadow: #0000005a 1px 1px 5px;
 }
 
 .checkout-images {
@@ -886,7 +889,15 @@ html {
     width: 25px;
     fill: var(--text-colour);
 }
-
+/* layer */
+.layer{
+    position: fixed;
+    z-index: 4;
+    height: 100%;
+    width: 100%;
+    top: 0%;
+    background-color: rgba(34, 19, 0, 0.46);
+}
 /* Customer Details sidebar */
 .Customer-details {
     min-height: 100%;

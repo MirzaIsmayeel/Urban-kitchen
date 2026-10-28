@@ -11,6 +11,8 @@ let reservation = document.querySelector(".photo-CTA")
 let reservationcard = document.querySelector(".reservation-card")
 let reservationcta = document.querySelector(".reservation-btn")
 let ordercart = document.querySelector(".cart")
+let layer = document.querySelector("#layer")
+
 let Sidebarauto = () => {
     Sidebar.classList.toggle('sidebar-container-open')
     blurlayer.classList.toggle('blur-layer-open')
@@ -348,7 +350,7 @@ let Webfullmenu = [
     },
     {
         img: "assets/Menu-Items/Gemini_Generated_Image_62pd0062pd0062pd.webp",
-        name: "Chicken Burger",
+        name: "Chicken burger",
         prize: "310",
         discription: "It has a cooked beef patty inside a sliced bun. A slice of melted.",
         Id: "Burgers",
@@ -492,14 +494,17 @@ function menubtnfilter(btnfilter) {
     });
 }
 menubtnfilter(btnfilter)
+
 let checkoutmain = document.querySelector(".checkout-main")
-order = JSON.parse(localStorage.getItem('order')) || []
-ordercart.addEventListener('click',()=>{
-    checkoutmain.innerHTML = ''
-    order.forEach((orders) => {
-        createCheckoutCard(orders)
-    })
+order.forEach((order) => {
+    createCheckoutCard(order)
 })
+function addtocheckout(){
+    checkoutmain.innerHTML = ''
+    order.forEach((order) => {
+        createCheckoutCard(order)
+    })
+}
 function createIcon(className, pathData) {
     const SVG_NS = 'http://www.w3.org/2000/svg';
     const svg = document.createElementNS(SVG_NS, 'svg');
@@ -566,12 +571,12 @@ if (order.length > 0) {
 ordercart.addEventListener('click', () => {
     checkoutpage.style.display = 'flex'
     document.body.scroll = false
-    blurlayer.classList.toggle('blur-layer-open')
+    layer.classList.add('layer')
     document.documentElement.classList.add('no-scroll');
 })
 ordercartclose.addEventListener('click', () => {
     checkoutpage.style.display = 'none'
-    blurlayer.classList.toggle('blur-layer-open')
+    layer.classList.remove('layer')
     document.documentElement.classList.remove('no-scroll');
 })
 function createMenuCard(menuitems, tital) {
@@ -611,7 +616,8 @@ function createMenuCard(menuitems, tital) {
     let btnsvg
     const svg = '<svg xmlns="http://www.w3.org/2000/svg" class="menu-card-CTA-icon" height="24px" viewBox="0 -960 960 960" width="24px" fill="221300"><path d="M223.5-103.5Q200-127 200-160t23.5-56.5Q247-240 280-240t56.5 23.5Q360-193 360-160t-23.5 56.5Q313-80 280-80t-56.5-23.5Zm400 0Q600-127 600-160t23.5-56.5Q647-240 680-240t56.5 23.5Q760-193 760-160t-23.5 56.5Q713-80 680-80t-56.5-23.5ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z"/></svg>';
     const button = document.createElement('button');
-    alreadyorder = order.some(item => item.name === menuitems.name)
+    const alreadyorder = order.some(item => item.name == menuitems.name)
+    console.log(order)
     if (alreadyorder) {
         button.classList.add('Added-fullmenu-btn')
         button.style.backgroundColor = "#221300"
@@ -638,6 +644,7 @@ function createMenuCard(menuitems, tital) {
     fullmenucardwarppertital.innerHTML = `${tital}`;
 }
 let clickedbtn
+console.log(order)
 function Order(clickbtn) {
     if (Id == "topdishies") {
         console.log(Id)
@@ -664,6 +671,7 @@ function Order(clickbtn) {
         if (order.length > 0) {
             ordercart.style.display = 'flex'
         }
+        addtocheckout()
         // clickbtn.textContent = 'Added';
         // clickbtn.classList.remove('deshies-CTA');
         // clickbtn.classList.add('Added-topdishies-btn')
@@ -672,7 +680,6 @@ function Order(clickbtn) {
         // }
     }
     else if (Id == 'FullMenu') {
-        console.log(Id)
         const clickedbtn = clickbtn.currentTarget
         clickedbtn.classList.add('Added-fullmenu-btn')
         clickedbtn.style.backgroundColor = "#221300"
@@ -689,7 +696,8 @@ function Order(clickbtn) {
         if (order.length > 0) {
             ordercart.style.display = 'flex'
         }
-        order = localStorage.setItem('order', JSON.stringify(order))
+        addtocheckout()
+        localStorage.setItem('order', JSON.stringify(order))
         clickedbtn.classList.remove('menu-card-CTA')
         clickedbtn.innerText = 'Added to Cart';
         clickedbtn.disabled = true;
