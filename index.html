@@ -165,16 +165,16 @@
                 </div>
                 <div class="delivery-states">
                     <span class="Delivery-status">
-                        <input type="radio" name="" id="" name="Delivery-status">
-                        <label class="delivery-status-name" for="">Pick Up</label>
+                        <input type="radio" name="deliverygroup" id="" name="Delivery-status">
+                        <label type="radio" class="delivery-status-name" id="pickup" value="pickup" for="">Pick Up</label>
                     </span>
                     <span class="Delivery-status">
-                        <input type="radio" name="" id="" name="Delivery-status">
-                        <label class="delivery-status-name" for="">Cash on Delivery</label>
+                        <input type="radio" name="deliverygroup" id="" name="Delivery-status">
+                        <label type="radio" class="delivery-status-name" id="cashondelivery" value="cashondelivery" for="">Cash on Delivery</label>
                     </span>
                 </div>
                 <div class="checkout-subtotal">
-                    <h3>Subtotal: 350</h3>
+                    <h3>Subtotal: <span id="checkoutsubtotal">0</span></h3>
                 </div>
                 <small class="checkout-error">Please Select your delivery option.</small>
                 <button class="checkout-CTA">

@@ -556,6 +556,7 @@ function createCheckoutCard(orders) {
     qty.textContent = orders.orderquantity;
     addIcon.addEventListener('click', () => {
         orders.orderquantity++
+        checkouttotal(order)
         localStorage.setItem('order', JSON.stringify(order));
         qty.textContent = orders.orderquantity;
     })
@@ -569,10 +570,17 @@ function createCheckoutCard(orders) {
         localStorage.setItem('order', JSON.stringify(order));
         if (orders.orderquantity > 0) {
             qty.textContent = orders.orderquantity;
+            checkouttotal(order)
         }
         else {
+            console.log(order.indexOf(orders))
+            order.splice(order.indexOf(orders), 1)
+            localStorage.setItem('order', JSON.stringify(order));
+            addtocheckout()
+            menubtnfilter(btnfilter)
+            console.log(order)
             console.log(orders.orderquantity)
-            alert("item remove")
+            checkouttotal(order)
         }
     })
 
@@ -581,6 +589,28 @@ function createCheckoutCard(orders) {
     card.append(imageWrap, content);
     checkoutmain.append(card);
 }
+
+// Delivery radio btns
+let pickup = document.getElementById(`pickup`)
+let cashondelivery = document.getElementById(`cashondelivery`)
+// 
+// Checkou Total
+let ordertotal
+function checkouttotal(order) {
+    ordertotal = 0
+    order.forEach((item) => {
+        orderprize = item.prize
+        ordernumber = Number(orderprize)
+        ordertotal += ordernumber * item.orderquantity
+    })
+    console.log(ordertotal, orderprize)
+    const checkoutsubtotal = document.getElementById(`checkoutsubtotal`)
+    checkoutsubtotal.innerText = ordertotal
+    console.log(ordertotal)
+    console.log(order)
+}
+// checkouttotal(order)
+// 
 let ordercartclose = document.querySelector(".checkout-close")
 if (order.length > 0) {
     ordercart.style.display = 'flex'
@@ -590,6 +620,7 @@ ordercart.addEventListener('click', () => {
     document.body.scroll = false
     layer.classList.add('layer')
     document.documentElement.classList.add('no-scroll');
+    checkouttotal(order)
 })
 ordercartclose.addEventListener('click', () => {
     checkoutpage.style.display = 'none'
@@ -689,6 +720,7 @@ function Order(clickbtn) {
             ordercart.style.display = 'flex'
         }
         addtocheckout()
+        checkouttotal(order)
         // clickbtn.textContent = 'Added';
         // clickbtn.classList.remove('deshies-CTA');
         // clickbtn.classList.add('Added-topdishies-btn')
@@ -701,7 +733,7 @@ function Order(clickbtn) {
         clickedbtn.classList.add('Added-fullmenu-btn')
         clickedbtn.style.backgroundColor = "#221300"
         ordertital = clickedbtn.parentElement.children[0].innerText
-        orderprize = clickedbtn.parentElement.children[2].innerText
+        orderprize = clickedbtn.parentElement.children[2].innerText.replace('Rs:', '')
         orderimg = clickedbtn.parentElement.parentElement.children[0].children[0].getAttribute('src')
         order.push({
             Image: orderimg,
@@ -714,6 +746,7 @@ function Order(clickbtn) {
             ordercart.style.display = 'flex'
         }
         addtocheckout()
+        checkouttotal(order)
         localStorage.setItem('order', JSON.stringify(order))
         clickedbtn.classList.remove('menu-card-CTA')
         clickedbtn.innerText = 'Added to Cart';

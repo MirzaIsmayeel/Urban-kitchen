@@ -1966,7 +1966,7 @@ html {
 }
 
 .error {
-    font-size: 16px;
+    font-size: 17px;
     color:#AC0707;
     display: none;
     font-family: var(--text-font-medium);
@@ -1999,9 +1999,9 @@ html {
 }
 
 .form-group label {
-    font-family: var(--text-font-regular);
+    font-family: var(--text-font-medium);
     color: #221300;
-    font-size: 20px;
+    font-size: 21px;
 }
 
 .form-group input {
