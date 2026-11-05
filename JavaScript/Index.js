@@ -217,6 +217,55 @@ if (dishiestop.length >= 0) {
 else {
     alert("Your Top Dishies is Empty.")
 }
+// Menu sycn
+
+const CART_SVG = '<svg xmlns="http://www.w3.org/2000/svg" class="menu-card-CTA-icon" height="24px" viewBox="0 -960 960 960" width="24px" fill="#221300"><path d="M223.5-103.5Q200-127 200-160t23.5-56.5Q247-240 280-240t56.5 23.5Q360-193 360-160t-23.5 56.5Q313-80 280-80t-56.5-23.5Zm400 0Q600-127 600-160t23.5-56.5Q647-240 680-240t56.5 23.5Q760-193 760-160t-23.5 56.5Q713-80 680-80t-56.5-23.5ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z"/></svg>';
+// Sets ONE button to the "added" or "not added" look
+function setMenuButtonState(button, added) {
+    if (added) {
+        button.className = 'Added-fullmenu-btn';
+        button.style.backgroundColor = '#221300';
+        button.textContent = 'Added to Cart';
+        button.disabled = true;
+    } else {
+        button.className = 'menu-card-CTA';
+        button.style.backgroundColor = '';
+        button.textContent = 'Add to Cart';
+        button.insertAdjacentHTML('beforeend', CART_SVG);
+        button.disabled = false;
+    }
+}
+
+// Loops over ALL menu buttons and matches each one to the order array
+function syncMenuButtons() {
+    document.querySelectorAll('.dishies-card button[data-name]').forEach(function (btn) {
+        const inCart = order.some(function (item) {
+            return item.name === btn.dataset.name;
+        });
+        setMenuButtonState(btn, inCart);
+    });
+}
+// Top dishies sycn
+function settopdishiesbuttonstate(btn, added) {
+    if (added) {
+        btn.textContent = 'Added';
+        btn.classList.remove('deshies-CTA');
+        btn.classList.add('Added-topdishies-btn')
+        btn.disabled = true
+    }
+    else{
+        btn.textContent = 'Add';
+        btn.classList.add('deshies-CTA');
+        btn.classList.remove('Added-topdishies-btn')
+        btn.disabled = false
+    }
+}
+function synctopdishiesbtns(){
+    document.querySelectorAll('.deshies-price button[data-name]').forEach((btn)=>{
+        const incart = order.some(item=>item.name===btn.dataset.name)
+        settopdishiesbuttonstate(btn,incart)
+    })
+}
 // A function that create a card layout buy those arry which i passed them
 function createDeshiCard(dishes) {
     // Catching top dishies wapper
@@ -252,25 +301,28 @@ function createDeshiCard(dishes) {
     price.textContent = `Rs: ${dishes.prize}`;
 
     const addBtn = document.createElement('button');
-    const topalreadyorder = order.some(item => item.name == dishes.name)
-    if (topalreadyorder) {
-        addBtn.textContent = 'Added';
-        addBtn.classList.remove('deshies-CTA');
-        addBtn.classList.add('Added-topdishies-btn')
-        addBtn.disabled = 'true'
-    }
-    else {
-        addBtn.textContent = 'Add';
-        addBtn.classList.add('deshies-CTA');
-        addBtn.addEventListener("click", (e) => {
-            Id = 'topdishies'
-            Order(e.currentTarget, Id)
-            addBtn.textContent = 'Added';
-            addBtn.classList.remove('deshies-CTA');
-            addBtn.classList.add('Added-topdishies-btn')
-            addBtn.disabled = 'true'
-        })
-    }
+    addBtn.dataset.name = dishes.name;
+    settopdishiesbuttonstate(addBtn, order.some(item => item.name == dishes.name))
+    // const topalreadyorder = order.some(item => item.name == dishes.name)
+    // if (topalreadyorder) {
+    //     addBtn.textContent = 'Added';
+    //     addBtn.classList.remove('deshies-CTA');
+    //     addBtn.classList.add('Added-topdishies-btn')
+    //     addBtn.disabled = 'true'
+    // }
+    // else {
+    //     addBtn.textContent = 'Add';
+    //     addBtn.classList.add('deshies-CTA');
+    addBtn.addEventListener("click", (e) => {
+        Id = 'topdishies'
+        Order(e.currentTarget, Id)
+        //  console.log(document.querySelectorAll('.dishies-card button[data-name]'))
+        // addBtn.textContent = 'Added';
+        // addBtn.classList.remove('deshies-CTA');
+        // addBtn.classList.add('Added-topdishies-btn')
+        // addBtn.disabled = 'true'
+    })
+    // }
 
     priceRow.appendChild(price);
     priceRow.appendChild(addBtn);
@@ -568,6 +620,10 @@ function createCheckoutCard(orders) {
     removeIcon.addEventListener('click', () => {
         orders.orderquantity--
         localStorage.setItem('order', JSON.stringify(order));
+        Webfullmenu.forEach(menuitems =>
+            inCart = order.some(item => item.name == menuitems.name),
+        )
+        console.log(inCart)
         if (orders.orderquantity > 0) {
             qty.textContent = orders.orderquantity;
             checkouttotal(order)
@@ -576,8 +632,14 @@ function createCheckoutCard(orders) {
             console.log(order.indexOf(orders))
             order.splice(order.indexOf(orders), 1)
             localStorage.setItem('order', JSON.stringify(order));
+            syncMenuButtons()
+            synctopdishiesbtns()
             addtocheckout()
-            menubtnfilter(btnfilter)
+            Webfullmenu.forEach((menuitems) => {
+                if (menuitems.Id == `${btnfilter}`) {
+                    createMenuCard(menuitems, btnfilter)
+                }
+            })
             console.log(order)
             console.log(orders.orderquantity)
             checkouttotal(order)
@@ -603,7 +665,6 @@ function checkouttotal(order) {
         ordernumber = Number(orderprize)
         ordertotal += ordernumber * item.orderquantity
     })
-    console.log(ordertotal, orderprize)
     const checkoutsubtotal = document.getElementById(`checkoutsubtotal`)
     checkoutsubtotal.innerText = ordertotal
     console.log(ordertotal)
@@ -627,6 +688,7 @@ ordercartclose.addEventListener('click', () => {
     layer.classList.remove('layer')
     document.documentElement.classList.remove('no-scroll');
 })
+let alreadyorder
 function createMenuCard(menuitems, tital) {
     // Outer card
     const card = document.createElement('div');
@@ -661,26 +723,26 @@ function createMenuCard(menuitems, tital) {
     price.textContent = `Rs: ${menuitems.prize}`;
 
     // Button + SVG icon (SVG needs createElementNS, not createElement)
-    let btnsvg
-    const svg = '<svg xmlns="http://www.w3.org/2000/svg" class="menu-card-CTA-icon" height="24px" viewBox="0 -960 960 960" width="24px" fill="221300"><path d="M223.5-103.5Q200-127 200-160t23.5-56.5Q247-240 280-240t56.5 23.5Q360-193 360-160t-23.5 56.5Q313-80 280-80t-56.5-23.5Zm400 0Q600-127 600-160t23.5-56.5Q647-240 680-240t56.5 23.5Q760-193 760-160t-23.5 56.5Q713-80 680-80t-56.5-23.5ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z"/></svg>';
+    // let btnsvg
+    // const svg = '<svg xmlns="http://www.w3.org/2000/svg" class="menu-card-CTA-icon" height="24px" viewBox="0 -960 960 960" width="24px" fill="221300"><path d="M223.5-103.5Q200-127 200-160t23.5-56.5Q247-240 280-240t56.5 23.5Q360-193 360-160t-23.5 56.5Q313-80 280-80t-56.5-23.5Zm400 0Q600-127 600-160t23.5-56.5Q647-240 680-240t56.5 23.5Q760-193 760-160t-23.5 56.5Q713-80 680-80t-56.5-23.5ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z"/></svg>';
     const button = document.createElement('button');
-    const alreadyorder = order.some(item => item.name == menuitems.name)
-    console.log(order)
-    if (alreadyorder) {
-        button.classList.add('Added-fullmenu-btn')
-        button.style.backgroundColor = "#221300"
-        button.innerText = 'Added to Cart';
-        button.disabled = true;
-    }
-    else {
-        button.classList.add('menu-card-CTA');
-        button.innerText = 'Add to Cart';
-        button.insertAdjacentHTML('beforeend', svg);
-        button.addEventListener('click', (clickbtn) => {
-            Id = "FullMenu"
-            Order(clickbtn, Id)
-        })
-    }
+    button.dataset.name = menuitems.name;
+    setMenuButtonState(button, order.some(item => item.name === menuitems.name));
+    // if (alreadyorder) {
+    //     button.classList.add('Added-fullmenu-btn')
+    //     button.style.backgroundColor = "#221300"
+    //     button.innerText = 'Added to Cart';
+    //     button.disabled = true;
+    // }
+    // else {
+    //     button.classList.add('menu-card-CTA');
+    //     button.innerText = 'Add to Cart';
+    //     button.insertAdjacentHTML('beforeend', svg);
+    button.addEventListener('click', (clickbtn) => {
+        Id = "FullMenu"
+        Order(clickbtn, Id)
+    })
+    // }
     content.appendChild(title);
     content.appendChild(desc);
     content.appendChild(price);
@@ -725,6 +787,7 @@ function Order(clickbtn) {
         // clickbtn.classList.remove('deshies-CTA');
         // clickbtn.classList.add('Added-topdishies-btn')
         localStorage.setItem('order', JSON.stringify(order))
+        synctopdishiesbtns()
         // console.log(order)
         // }
     }
@@ -748,6 +811,7 @@ function Order(clickbtn) {
         addtocheckout()
         checkouttotal(order)
         localStorage.setItem('order', JSON.stringify(order))
+        syncMenuButtons()
         clickedbtn.classList.remove('menu-card-CTA')
         clickedbtn.innerText = 'Added to Cart';
         clickedbtn.disabled = true;
