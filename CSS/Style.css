@@ -839,7 +839,7 @@ html {
     font-size: 20px;
     width: 100%;
     color: #AC0707;
-    /* display: none; */
+    display: none;
 }
 
 .Delivery-status {

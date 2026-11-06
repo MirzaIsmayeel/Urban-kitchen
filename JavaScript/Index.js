@@ -253,17 +253,17 @@ function settopdishiesbuttonstate(btn, added) {
         btn.classList.add('Added-topdishies-btn')
         btn.disabled = true
     }
-    else{
+    else {
         btn.textContent = 'Add';
         btn.classList.add('deshies-CTA');
         btn.classList.remove('Added-topdishies-btn')
         btn.disabled = false
     }
 }
-function synctopdishiesbtns(){
-    document.querySelectorAll('.deshies-price button[data-name]').forEach((btn)=>{
-        const incart = order.some(item=>item.name===btn.dataset.name)
-        settopdishiesbuttonstate(btn,incart)
+function synctopdishiesbtns() {
+    document.querySelectorAll('.deshies-price button[data-name]').forEach((btn) => {
+        const incart = order.some(item => item.name === btn.dataset.name)
+        settopdishiesbuttonstate(btn, incart)
     })
 }
 // A function that create a card layout buy those arry which i passed them
@@ -651,11 +651,57 @@ function createCheckoutCard(orders) {
     card.append(imageWrap, content);
     checkoutmain.append(card);
 }
-
 // Delivery radio btns
-let pickup = document.getElementById(`pickup`)
-let cashondelivery = document.getElementById(`cashondelivery`)
-// 
+let deliverystat
+let deliverystatus = () => {
+    deliverystat
+    let pickup = document.getElementById(`pickup`)
+    let ratiopickupbtn = document.getElementById(`Pick Up`)
+    let cashondelivery = document.getElementById(`cashondelivery`)
+    let radiocashondeliverybtn = document.getElementById(`Cash on Delivery`)
+    if (ratiopickupbtn.checked) {
+        deliverystat = pickup.innerText
+    }
+    if (radiocashondeliverybtn.checked) {
+        deliverystat = cashondelivery.innerText
+    }
+    pickup.addEventListener('click', () => {
+        ratiopickupbtn.checked = true
+    })
+    cashondelivery.addEventListener('click', () => {
+        radiocashondeliverybtn.checked = true
+
+    })
+    // radiocashondeliverybtn.addEventListener('click',()=>{
+    //     radiocashondeliverybtn.checked=true
+    //     console.log(radiocashondeliverybtn.id)
+    // })
+    // ratiopickupbtn.addEventListener('click',()=>{
+    //     ratiopickupbtn.checked = true
+    //     console.log(ratiopickupbtn.id)
+    //     })
+    return deliverystat
+}
+deliverystatus()
+// Checkout CTA
+let checkoutcta = document.querySelector('.checkout-CTA')
+checkoutcta.addEventListener('click', () => {
+    const error = document.querySelector(".checkout-error")
+    console.log('ok', deliverystatus())
+    if (order.length == 0) {
+        error.innerText = ''
+        error.innerText = 'Please Select your items in your Cart.'
+        error.style.display = 'unset'
+        return
+    }
+    else if (deliverystatus() === undefined) {
+        error.innerText += 'Please Select your delivery option.'
+        return
+    }
+    else if (order.length > 0 && deliverystatus() !== undefined) {
+        whatsapporder()
+    }
+})
 // Checkou Total
 let ordertotal
 function checkouttotal(order) {
@@ -667,8 +713,7 @@ function checkouttotal(order) {
     })
     const checkoutsubtotal = document.getElementById(`checkoutsubtotal`)
     checkoutsubtotal.innerText = ordertotal
-    console.log(ordertotal)
-    console.log(order)
+    return ordertotal
 }
 // checkouttotal(order)
 // 
@@ -812,10 +857,26 @@ function Order(clickbtn) {
         checkouttotal(order)
         localStorage.setItem('order', JSON.stringify(order))
         syncMenuButtons()
+        synctopdishiesbtns()
+
         clickedbtn.classList.remove('menu-card-CTA')
         clickedbtn.innerText = 'Added to Cart';
         clickedbtn.disabled = true;
     }
 }
-
-
+// Whatsapp Order
+function whatsapporder() {
+    let finalwhatsapporder = '----------CUSTOMER ORDER----------\n'
+    order.forEach((item, index) => {
+        finalwhatsapporder +=
+         `${index + 1}.${item.name}
+  Quantity : ${item.orderquantity}
+  Prize : ${item.prize}\n\n`
+    })
+    finalwhatsapporder+= '----------DELIVERY DETAILS----------\n'
+    finalwhatsapporder += `Delivery Status : ${deliverystatus()}\n`
+    console.log(order)
+    console.log(checkouttotal(order))
+    console.log(finalwhatsapporder)
+    return finalwhatsapporder
+}
