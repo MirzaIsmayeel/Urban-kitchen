@@ -656,14 +656,41 @@ let deliverystat
 let deliverystatus = () => {
     deliverystat
     let pickup = document.getElementById(`pickup`)
+    let customerform = document.querySelector('.cutomer-details')
+    let customerpayments = document.querySelector('.customer-payment')
     let ratiopickupbtn = document.getElementById(`Pick Up`)
     let cashondelivery = document.getElementById(`cashondelivery`)
     let radiocashondeliverybtn = document.getElementById(`Cash on Delivery`)
+    let customertotal = document.querySelector(`.customertotal`)
+    let customersubtotal = document.querySelector(`.customersubtotal`)
     if (ratiopickupbtn.checked) {
         deliverystat = pickup.innerText
+        customerform.children[6].style.display = 'none'
+        customerform.children[7].style.display = 'none'
+        customerform.children[8].style.display = 'none'
+        customerform.children[9].style.display = 'none'
+        customerform.children[10].style.display = 'none'
+        customerform.children[11].style.display = 'none'
+        customerpayments.children[0].style.display = 'none'
+        customerpayments.children[1].style.display = 'none'
+        customerpayments.children[2].style.fontSize = '36.2px'
+        customertotal.innerText = checkouttotal(order)
+        
+        // console.log(customerform.children[7])
+        // console.log(customerform.children[8])
     }
     if (radiocashondeliverybtn.checked) {
+        customerform.children[6].style.display = 'unset'
+        customerform.children[7].style.display = 'unset'
+        customerform.children[8].style.display = 'none'
+        customerform.children[9].style.display = 'unset'
+        customerform.children[10].style.display = 'unset'
+        customerform.children[11].style.display = 'none'
+        customerpayments.children[0].style.display = 'unset'
+        customerpayments.children[1].style.display = 'unset'
         deliverystat = cashondelivery.innerText
+        customertotal.innerText = checkouttotal(order)
+        customersubtotal.innerText = checkouttotal(order)
     }
     pickup.addEventListener('click', () => {
         ratiopickupbtn.checked = true
@@ -685,6 +712,8 @@ let deliverystatus = () => {
 deliverystatus()
 // Checkout CTA
 let checkoutcta = document.querySelector('.checkout-CTA')
+const Customerdetails = document.querySelector(".Customer-details")
+const Customerdetailsback = document.querySelector(".customer-details-back")
 checkoutcta.addEventListener('click', () => {
     const error = document.querySelector(".checkout-error")
     console.log('ok', deliverystatus())
@@ -700,7 +729,11 @@ checkoutcta.addEventListener('click', () => {
     }
     else if (order.length > 0 && deliverystatus() !== undefined) {
         whatsapporder()
+        Customerdetails.style.display = 'unset'
     }
+})
+Customerdetailsback.addEventListener('click', () => {
+    Customerdetails.style.display = 'none'
 })
 // Checkou Total
 let ordertotal
@@ -716,6 +749,45 @@ function checkouttotal(order) {
     return ordertotal
 }
 // checkouttotal(order)
+// Customerdetails Cash on delivery fare
+let deliveryfare = {
+    'Sargodha': 100,
+    'Multan': 150,
+    'Lahore': 200,
+}
+// Customerdetails Cash on delivery
+const CustomerdetailsCTA = document.querySelector(".customer-CTA")
+const Customerformname = document.getElementById("Name")
+const Customerformphonenumber = document.getElementById("phone-number")
+const Customerformarea = document.getElementById("Area")
+const Customerformfulladdress = document.getElementById("full-address")
+const Customerformmassage = document.getElementById("massage")
+
+let Customerdetailscta = () => {
+    Customerdetails.preventDefault
+    const customererrors = document.querySelectorAll('.customer-error')
+    if (Customerformname.value == '') {
+        console.log(customererrors[0].style.display = 'unset')
+    }
+    else if (Customerformphonenumber.value == '') {
+        customererrors[1].style.display = 'unset'
+    }
+    else if (Customerformarea.value == 'please select your area') {
+        customererrors[2].style.display = 'unset'
+    }
+    else if (Customerformfulladdress.value == '') {
+        customererrors[3].style.display = 'unset'
+    }
+    const customername = Customerformname.value
+    const customerph = Customerformphonenumber.value
+    const customerarea = Customerformarea.value
+    const customerfulladdress = Customerformfulladdress.value
+    const customermassage = Customerformmassage.value
+    console.log(customername, customerph, customerarea, customerfulladdress, customermassage)
+    return [customername, customerph, customerarea, customerfulladdress, customermassage]
+}
+Customerdetailscta()
+CustomerdetailsCTA.addEventListener("click", whatsapporder)
 // 
 let ordercartclose = document.querySelector(".checkout-close")
 if (order.length > 0) {
@@ -866,15 +938,26 @@ function Order(clickbtn) {
 }
 // Whatsapp Order
 function whatsapporder() {
-    let finalwhatsapporder = '----------CUSTOMER ORDER----------\n'
+    console.log(Customerdetailscta()[0])
+    let finalwhatsapporder = '----------CUSTOMER DETAILS----------\n'
+    finalwhatsapporder +=
+             `Name: ${Customerdetailscta()[0]}
+Phone Number: ${Customerdetailscta()[1]}
+Area: ${Customerdetailscta()[2]}
+Full Adress: ${Customerdetailscta()[3]}
+Massage: ${Customerdetailscta()[4]}\n\n`
+
+    finalwhatsapporder += '----------CUSTOMER ORDER----------\n'
     order.forEach((item, index) => {
         finalwhatsapporder +=
-         `${index + 1}.${item.name}
-  Quantity : ${item.orderquantity}
-  Prize : ${item.prize}\n\n`
+            `${index + 1}.${item.name}
+Quantity : ${item.orderquantity}
+Prize : ${item.prize}\n\n`
     })
-    finalwhatsapporder+= '----------DELIVERY DETAILS----------\n'
-    finalwhatsapporder += `Delivery Status : ${deliverystatus()}\n`
+    finalwhatsapporder += '----------DELIVERY DETAILS----------\n'
+    finalwhatsapporder += 
+             `Delivery Status : ${deliverystatus()}
+Subtotal: ${checkouttotal(order)}`
     console.log(order)
     console.log(checkouttotal(order))
     console.log(finalwhatsapporder)
