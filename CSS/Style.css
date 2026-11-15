@@ -1420,6 +1420,9 @@ html {
 }
 
 /* Order Now Button */
+.about-order-btn{
+    text-decoration: none;
+}
 .order-now-btn {
     background-color: var(--CTA-colour);
     color: var(--text-colour);

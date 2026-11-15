@@ -171,7 +171,61 @@ NavMenuBtn[1].addEventListener("click", () => {
     if (fullmenu.classList.contains("invisible")) {
         topdeshies.classList.add("invisible")
         fullmenu.classList.remove("invisible")
+        tabbtns[0].click()
     }
+})
+let mobilenavmenu = document.querySelector('.sidebarmenu')
+mobilenavmenu.addEventListener('click', () => {
+    if (fullmenu.classList.contains("invisible")) {
+        topdeshies.classList.add("invisible")
+        fullmenu.classList.remove("invisible")
+        tabbtns[0].click()
+    }
+})
+// About Ordering Btn
+let aboutcta = document.querySelector('.order-now-btn')
+aboutcta.addEventListener('click', () => {
+    if (fullmenu.classList.contains("invisible")) {
+        topdeshies.classList.add("invisible")
+        fullmenu.classList.remove("invisible")
+        tabbtns[0].click()
+    }
+})
+// Offercta
+
+let offercta = document.querySelector('.offer-CTA-btn')
+offercta.addEventListener('click', () => {
+    if (fullmenu.classList.contains("invisible")) {
+        topdeshies.classList.add("invisible")
+        fullmenu.classList.remove("invisible")
+        tabbtns[0].click()
+    }
+})
+// Contact Us form
+let contectusname = document.getElementById('name')
+let contectusphone = document.getElementById('phone')
+let contectusemail = document.getElementById('email')
+let contectusmessage = document.getElementById('message')
+let contactusCta = document.querySelector('.cta-btn')
+contactusCta.addEventListener('click', (e) => {
+    e.preventDefault()
+    if (contectusname.value == '' && contectusname.value.length < 3) {
+        console.log(customererrors[4].style.display = 'unset')
+    }
+    else if (contectusphone.value == '') {
+        console.log(customererrors[5].style.display = 'unset')
+    }
+    else if (contectusemail.value == '') {
+        console.log(customererrors[6].style.display = 'unset')
+    }
+    else if (contectusmessage.value == '') {
+        console.log(customererrors[7].style.display = 'unset')
+    }
+    else {
+        console.log(contectusname.value)
+        console.log(contectusphone.value)
+        console.log(contectusemail.value)
+        console.log(contectusmessage.value)
 })
 // Order
 let order = JSON.parse(localStorage.getItem('order')) || []
@@ -657,6 +711,7 @@ let customertotal = document.querySelector(`.customertotal`)
 let deliverystatus = () => {
     deliverystat
     let pickup = document.getElementById(`pickup`)
+    let customerformpickuptotal = document.querySelector('.pickuptotal')
     let customerform = document.querySelector('.cutomer-details')
     let customerpayments = document.querySelector('.customer-payment')
     let ratiopickupbtn = document.getElementById(`Pick Up`)
@@ -665,19 +720,23 @@ let deliverystatus = () => {
     let customersubtotal = document.querySelector(`.customersubtotal`)
     if (ratiopickupbtn.checked) {
         deliverystat = pickup.innerText
-        console.log(customerform.children[9])
-        console.log(customerform.children[10])
-        console.log(customerform.children[11])
+        console.log(customerform.children[6])
+        console.log(customerform.children[7])
+        console.log(customerpayments.children[1])
         customerform.children[6].style.display = 'none'
         customerform.children[7].style.display = 'none'
         customerform.children[8].style.display = 'none'
         customerform.children[9].style.display = 'none'
         customerform.children[10].style.display = 'none'
         customerform.children[11].style.display = 'none'
-        customerpayments.children[0].style.display = 'none'
+        // customerpayments.children[0].style.display = 'none'
+        console.log(customerpayments.children[0].textContent)
+        customerpayments.children[0].style.display = 'unset'
         customerpayments.children[1].style.display = 'none'
-        customerpayments.children[2].style.fontSize = '36.2px'
-        customertotal.innerText = checkouttotal(order)[0]
+        customerpayments.children[2].style.display = 'none'
+        customerpayments.children[3].style.display = 'none'
+        customerpayments.children[0].style.fontSize = '36.2px'
+        customerformpickuptotal.innerText = checkouttotal(order)[0]
 
         // console.log(customerform.children[7])
         // console.log(customerform.children[8])
@@ -689,10 +748,13 @@ let deliverystatus = () => {
         customerform.children[9].style.display = 'unset'
         customerform.children[10].style.display = 'unset'
         customerform.children[11].style.display = 'none'
-        customerpayments.children[0].style.display = 'unset'
+        customerpayments.children[0].style.display = 'none'
         customerpayments.children[1].style.display = 'unset'
+        customerpayments.children[2].style.display = 'unset'
+        customerpayments.children[3].style.display = 'unset'
         deliverystat = cashondelivery.innerText
         customertotal.innerText = checkouttotal(order)[0]
+        customerpayments.children[3].style.fontSize = '36.2px'
         deliveryfaree.innerText = 0
         customersubtotal.innerText = checkouttotal(order)[0]
     }
@@ -733,8 +795,9 @@ checkoutcta.addEventListener('click', () => {
     }
     else if (order.length > 0 && deliverystatus() !== undefined) {
         Customerdetails.style.display = 'unset'
+        deliveryfaree.innerText = checkouttotal(order)[2]
+        console.log(deliveryfaree.innerText)
         customertotal.innerText = checkouttotal(order)[0]
-        deliveryfaree.innerText = 0
     }
 })
 Customerdetailsback.addEventListener('click', () => {
@@ -760,7 +823,7 @@ function checkouttotal(order, fare) {
     checkoutsubtotal.innerText = ordertotal
     detailstotal = ordertotal + fare
     customertotal.innerText = detailstotal
-    return [ordertotal, detailstotal]
+    return [ordertotal, detailstotal, fare]
 }
 // checkouttotal(order)
 // Customerdetails Cash on delivery fare
@@ -817,8 +880,8 @@ Customerformarea.addEventListener("change", (e) => {
     whatsapporder(deliveryfare[farecheck])
     checkouttotal(order, deliveryfare[farecheck])
 })
+const customererrors = document.querySelectorAll('.customer-error')
 CustomerdetailsCTA.addEventListener("click", () => {
-    const customererrors = document.querySelectorAll('.customer-error')
     if (Customerformname.value == '' || Customerformname.value.length < 3) {
         customererrors[0].style.display = 'unset'
     }

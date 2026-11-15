@@ -27,8 +27,8 @@
                     <ul class="navbar-links">
                         <li><a href="#home">Home</a></li>
                         <li><a href="#Section2">Menu</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#aboutsection">About</a></li>
+                        <li><a href="#contactus">Contact</a></li>
                     </ul>
 
                     <!-- CTA Button -->
@@ -60,8 +60,8 @@
                 <div class="sidebar-content">
                     <div class="sidebar-links">
                         <a href="">Home</a>
-                        <a href="#Section2">Menu</a>
-                        <a href="">About</a>
+                        <a class="sidebarmenu" href="#Section2">Menu</a>
+                        <a href="#aboutsection">About</a>
                         <a href="">Contact</a>
                     </div>
                     <button class="sidebar-CTA">
@@ -145,7 +145,7 @@
             </div>
         </section>
         <div id="layer"></div>
-        <section class="Cart-system">
+        <section id="menu" class="Cart-system">
             <div class="cart">
                 <svg class="cart-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
                     <path
@@ -161,16 +161,18 @@
                 </div>
                 <h2>Checkout</h2>
                 <div class="checkout-main">
-                   
+
                 </div>
                 <div class="delivery-states">
                     <span class="Delivery-status">
                         <input type="radio" name="deliverygroup" id="Pick Up" name="Delivery-status">
-                        <label type="radio" class="delivery-status-name" id="pickup" value="pickup" for="">Pick Up</label>
+                        <label type="radio" class="delivery-status-name" id="pickup" value="pickup" for="">Pick
+                            Up</label>
                     </span>
                     <span class="Delivery-status">
                         <input type="radio" name="deliverygroup" id="Cash on Delivery" name="Delivery-status">
-                        <label type="radio" class="delivery-status-name" id="cashondelivery" value="cashondelivery" for="">Cash on Delivery</label>
+                        <label type="radio" class="delivery-status-name" id="cashondelivery" value="cashondelivery"
+                            for="">Cash on Delivery</label>
                     </span>
                 </div>
                 <div class="checkout-subtotal">
@@ -211,11 +213,13 @@
                         <input placeholder="Delivery Address" id="full-address" type="text">
                         <small class="customer-error">Please Enter your Full Address hare.</small>
                         <label for="Message">Massage (Optional)</label>
-                        <textarea id="massage" placeholder="Tell us about your addional requirments." name="Message"></textarea>
+                        <textarea id="massage" placeholder="Tell us about your addional requirments."
+                            name="Message"></textarea>
                     </form>
                 </div>
                 <div class="customer-pay">
                     <div class="customer-payment">
+                        <h3>Total: <span class="pickuptotal"></span></h3>
                         <h3>Subtotal: <span class="customersubtotal"></span></h3>
                         <h3>Delivery-Charges: <span class="customerdeliveryfare"></span></h3>
                         <h3>Total: <span class="customertotal"></span></h3>
@@ -281,7 +285,7 @@
                 </div>
             </section>
         </div>
-        <section class="about-section">
+        <section id="aboutsection" class="about-section">
             <div class="about-container">
                 <header class="section-header">
                     <h1 class="section-title">About Us</h1>
@@ -342,9 +346,11 @@
                                 <span class="avatar-badge">10+</span>
                             </div>
 
-                            <button type="button" class="order-now-btn">
-                                Order Now
-                            </button>
+                            <a class="about-order-btn" href="#Section2">
+                                <button type="button" class="order-now-btn">
+                                    Order Now
+                                </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -377,7 +383,9 @@
                         <span class="timer-secound">Sec</span>
                     </span>
                 </div>
-                <button class="offer-CTA-btn">Order Now</button>
+                <a class="about-order-btn" href="#Section2">
+                    <button class="offer-CTA-btn">Order Now</button>
+                </a>
             </div>
         </section>
         <section class="photo-gallary">
@@ -903,7 +911,7 @@
             </svg>
             <span>Your reservation is already done!</span>
         </div>
-        <section class="contact-us">
+        <section id="contactus" class="contact-us">
             <h2>Contact Us</h2>
             <div class="contact-us-form-address">
                 <div class="contact-us-info">
@@ -941,16 +949,20 @@
                 <div class="contact-us-form">
                     <form>
                         <label for="name">Name</label>
-                        <input type="text" id="name" name="name" placeholder="Your name" required>
+                        <input type="text" id="name" name="name" placeholder="Your name">
+                        <small class="customer-error">Please enter your name.</small>
 
                         <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" placeholder="Phone number" required>
+                        <input type="tel" id="phone" name="phone" placeholder="Phone number">
+                        <small class="customer-error">Please enter your phone number.</small>
 
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="Email address" required>
+                        <input type="email" id="email" name="email" placeholder="Email address">
+                        <small class="customer-error">Please enter your email.</small>
 
                         <label for="message">Message</label>
-                        <textarea id="message" name="message" placeholder="Your message" rows="5" required></textarea>
+                        <textarea id="message" name="message" placeholder="Your message" rows="5"></textarea>
+                        <small class="customer-error">Please enter your message.</small>
 
                         <button type="submit" class="cta-btn">
                             Send Your Message
