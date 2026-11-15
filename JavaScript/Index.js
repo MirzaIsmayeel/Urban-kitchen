@@ -226,6 +226,7 @@ contactusCta.addEventListener('click', (e) => {
         console.log(contectusphone.value)
         console.log(contectusemail.value)
         console.log(contectusmessage.value)
+    }
 })
 // Order
 let order = JSON.parse(localStorage.getItem('order')) || []
@@ -789,8 +790,11 @@ checkoutcta.addEventListener('click', () => {
         error.style.display = 'unset'
         return
     }
-    else if (deliverystatus() === undefined) {
-        error.innerText += 'Please Select your delivery option.'
+    else if (deliverystatus() == undefined) {
+        error.style.display = 'unset'
+        error.innerText = 'Please Select your delivery option.'
+        console.log(error.innerText)
+        console.log('delivery is undefine')
         return
     }
     else if (order.length > 0 && deliverystatus() !== undefined) {
