@@ -27,7 +27,7 @@
                     <ul class="navbar-links">
                         <li><a href="#home">Home</a></li>
                         <li><a href="#Section2">Menu</a></li>
-                        <li><a href="#aboutsection">About</a></li>
+                        <li><a href="#about-section">About</a></li>
                         <li><a href="#contactus">Contact</a></li>
                     </ul>
 
@@ -59,10 +59,10 @@
                 </div>
                 <div class="sidebar-content">
                     <div class="sidebar-links">
-                        <a href="">Home</a>
+                        <a href="#home">Home</a>
                         <a class="sidebarmenu" href="#Section2">Menu</a>
-                        <a href="#aboutsection">About</a>
-                        <a href="">Contact</a>
+                        <a href="#about-section">About</a>
+                        <a href="#contactus">Contact</a>
                     </div>
                     <button class="sidebar-CTA">
                         Reserve table
@@ -285,7 +285,7 @@
                 </div>
             </section>
         </div>
-        <section id="aboutsection" class="about-section">
+        <section id="about-section" class="about-section">
             <div class="about-container">
                 <header class="section-header">
                     <h1 class="section-title">About Us</h1>
@@ -364,22 +364,22 @@
                     best-selling dishes today.</p>
                 <div class="timer">
                     <span class="timer-days">
-                        05
+                        <span></span>
                         <span class="timer-day">Days</span>
                     </span>
                     :
                     <span class="timer-hours">
-                        07
+                        <span></span>
                         <span class="timer-hour">Hours</span>
                     </span>
                     :
                     <span class="timer-mins">
-                        34
+                        <span></span>
                         <span class="timer-min">Min</span>
                     </span>
                     :
                     <span class="timer-secounds">
-                        02
+                        <span></span>
                         <span class="timer-secound">Sec</span>
                     </span>
                 </div>
@@ -435,7 +435,7 @@
                 </button>
             </div>
         </section>
-        <section class="testimonial-section">
+        <section id="testimonials" class="testimonial-section">
             <h2>Testimonials</h2>
             <div class="testimonials-cards-section">
                 <div class="testimonials-cards-main">
@@ -1007,12 +1007,12 @@
             <div class="footer-links">
                 <h3>Explore</h3>
                 <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Menu</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Testimonials</a></li>
-                    <li><a href="#">Reserve table</a></li>
-                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#home">Home</a></li>
+                    <li><a id="foothermenu" href="#Section2">Menu</a></li>
+                    <li><a href="#about-section">About Us</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a  onclick="openreservationmodal()">Reserve table</a></li>
+                    <li><a href="#contactus">Contact Us</a></li>
                 </ul>
             </div>
             <div class="footer-contact">

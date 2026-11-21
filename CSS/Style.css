@@ -8,6 +8,7 @@ html {
     scrollbar-width: none;
     scroll-behavior: smooth;
     overflow-x: auto;
+    scroll-padding-top: 8rem; 
     scroll-snap-type: x mandatory;
 }
 
@@ -2287,6 +2288,7 @@ html {
     list-style: none;
     display: flex;
     flex-direction: column;
+
     gap: 8px;
 }
 
@@ -2301,6 +2303,7 @@ html {
 .footer-links a:hover {
     text-decoration: underline;
     color: var(--Bg-colour);
+    cursor: pointer;
 }
 
 .footer-contact p {

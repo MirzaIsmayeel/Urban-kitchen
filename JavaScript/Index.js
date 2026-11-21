@@ -12,6 +12,7 @@ let reservationcard = document.querySelector(".reservation-card")
 let reservationcta = document.querySelector(".reservation-btn")
 let ordercart = document.querySelector(".cart")
 let layer = document.querySelector("#layer")
+let foothermenu = document.querySelector("#foothermenu")
 
 let Sidebarauto = () => {
     Sidebar.classList.toggle('sidebar-container-open')
@@ -46,6 +47,14 @@ function togllefullmenu() {
         fullmenu.classList.add("invisible")
     }
 }
+// Footer Menu btn
+foothermenu.addEventListener('click',()=>{
+       if (fullmenu.classList.contains("invisible")) {
+        topdeshies.classList.add("invisible")
+        fullmenu.classList.remove("invisible")
+        tabbtns[0].click()
+    }
+})
 // Poppop for reservation form
 function openreservationmodal() {
     reservationpopop.style.display = "flex"
@@ -222,12 +231,22 @@ contactusCta.addEventListener('click', (e) => {
         console.log(customererrors[7].style.display = 'unset')
     }
     else {
-        console.log(contectusname.value)
-        console.log(contectusphone.value)
-        console.log(contectusemail.value)
-        console.log(contectusmessage.value)
+        console.log(contactusform())
+        // Customerdetailscta
+        let whatsapp = `https://wa.me/923480412436?text=${encodeURIComponent(contactusform())}`
+        window.open(whatsapp, "_blank")
     }
 })
+// Contact Us form function 
+let  contectusmassage
+function contactusform(){
+        contectusmassage = `----------#Contect Us#----------\n`
+        contectusmassage += `Name: ${contectusname.value}\n`
+        contectusmassage += `PhoneNumber: ${contectusphone.value}\n`
+        contectusmassage += `Email: ${contectusemail.value}\n`
+        contectusmassage += `Massage: ${contectusmessage.value}\n\n`
+        return contectusmassage
+}
 // Order
 let order = JSON.parse(localStorage.getItem('order')) || []
 // Arry for Top deshies cards
@@ -1115,3 +1134,31 @@ Prize : ${item.prize}\n\n`
     }
     return finalwhatsapporder
 }
+// Offer timer Countdown
+// Set the date we're counting down to
+var countDownDate = new Date("Nov 21, 2026 12:00").getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+  // Get today's date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  // Display the result in the element with id="demo"
+  document.querySelector('.timer').children[0].children[0].innerText = days
+  document.querySelector('.timer').children[1].children[0].innerText = hours 
+  document.querySelector('.timer').children[2].children[0].innerText = minutes 
+  document.querySelector('.timer').children[3].children[0].innerText = seconds 
+  // If the count down is finished, write some text
+  if (distance < 0) {
+      clearInterval(x);
+      document.querySelector('.timer').innerHTML = "EXPIRED";
+  }
+}, 1000);
