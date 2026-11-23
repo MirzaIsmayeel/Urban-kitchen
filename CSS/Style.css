@@ -87,7 +87,7 @@ html {
     display: flex;
     width: 100%;
     padding: 0 80px;
-    background-color: transparent;
+    background-color: var(--Bg-colour);
     justify-content: space-between;
     gap: 64px;
     backdrop-filter: blur(5px);
@@ -914,7 +914,7 @@ html {
     scrollbar-width: none;
     background-color: var(--Bg-colour);
     z-index: 5;
-    padding: 80px 10px 10px 10px;
+    padding: 5px 5px 5px 5px;
 }
 
 .customer-details-back {
@@ -2700,7 +2700,7 @@ html {
     /* Checkout */
     .Checkout {
         width: 361px;
-        padding: 60px 5px 5px 5px;
+        padding: 5px 5px 5px 5px;
     }
 
     .checkout-cards {
@@ -2776,7 +2776,7 @@ html {
 
     .Customer-details {
         width: 361px;
-        padding: 60px 5px 5px 5px;
+        padding: 5px 5px 5px 5px;
     }
 
     .customer-details-back-icon {
@@ -3425,7 +3425,7 @@ html {
 
     .Checkout {
         width: 320px;
-        padding: 70px 5px 5px 5px;
+        padding: 5px 5px 5px 5px;
     }
 
     .checkout-cards {
@@ -3495,7 +3495,7 @@ html {
 
     .Customer-details {
         width: 320px;
-        padding: 70px 5px 5px 5px;
+        padding: 5px 5px 5px 5px;
     }
 
     .customer-error {
