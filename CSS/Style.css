@@ -329,7 +329,7 @@ html {
 
 .hero-CTA:hover {
     cursor: pointer;
-    transform: translateY(-2px);
+    /* transform: translateY(-2px); */
     background-color: var(--CTA-hover-colour);
 }
 
